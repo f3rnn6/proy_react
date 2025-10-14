@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import AppNavBar from "../../componentes/navbar";
-import AppSearch from "../../componentes/barrabusqueda";
+import AppSearch from "../../componentes/SearchBar";
 import AppCard from "../../componentes/Card";
 import Footer from "../../componentes/footer";
 import 'bootstrap/dist/css/bootstrap.min.css';
