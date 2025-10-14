@@ -1,6 +1,5 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
 
 export default function AppCard({producto}) {
@@ -21,7 +20,7 @@ export default function AppCard({producto}) {
         <Card.Text style={{color:"#ffffff"}}>
             {producto.precio} 
         </Card.Text>
-        <Button className='boton-primario' >Go somewhere</Button>
+        <Button className='boton-primario' >Detalles</Button>
         <Button className='boton-favoritos' onClick={favorito}>☆</Button>
       </Card.Body>
     </Card>
