@@ -13,13 +13,15 @@ import CatalogoBaterias from './Paginas/catalogos/Catalogo-baterias';
 import Favoritos from './Paginas/favoritos';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import DetalleProductos from './Paginas/DetalleProductos';
+import Productos from './Paginas/productos';
 export default function App() {
 
 
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<CatalogoBaterias />} /> 
+        <Route path="/" element={<Productos />} /> 
+        <Route path="/catalogobaterias" element={<CatalogoBaterias />} /> 
         <Route path="/catalogoguitarras" element={<CatalogoGuitarras />} /> 
         <Route path="/catalogoaccesorios" element={<CatalogoAccesorios />} /> 
         <Route path="/catalogoteclados" element={<CatalogoTeclados/>} /> 
