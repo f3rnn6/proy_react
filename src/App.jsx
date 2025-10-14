@@ -1,11 +1,9 @@
-import { useState } from 'react'
+
 
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import AppNavBar from './componentes/navbar'
-import AppCard from './componentes/Card'
 import CatalogoGuitarras from './Paginas/catalogos/Catalogo-guitarra';
-import AppSearch from './componentes/SearchBar';
+
 
 import CatalogoAccesorios from './Paginas/catalogos/Catalogo-accesorios';
 import CatalogoTeclados from './Paginas/catalogos/Catalogo-teclados';
@@ -20,7 +18,7 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Productos />} /> 
+        <Route path="/productos" element={<Productos />} /> 
         <Route path="/catalogobaterias" element={<CatalogoBaterias />} /> 
         <Route path="/catalogoguitarras" element={<CatalogoGuitarras />} /> 
         <Route path="/catalogoaccesorios" element={<CatalogoAccesorios />} /> 

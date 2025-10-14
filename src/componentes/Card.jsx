@@ -26,7 +26,7 @@ function AppCard({ producto }) {
         <Card.Body>
           <Card.Title style={{ color: "#ffffff" }}>{producto.nombre}</Card.Title>
           <Card.Text style={{ color: "#ffffff" }}>{producto.descripcion}</Card.Text>
-          <Card.Text style={{ color: "#ffffff" }}>{producto.precio}</Card.Text>
+          <Card.Text className="text-center" style={{ color: "#ffffff" }}>{producto.precio}</Card.Text>
           <Link to={`/detalleproductos/${producto.id}`} >
             <Button className="boton-primario" >
               Ver Detalle
