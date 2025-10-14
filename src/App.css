@@ -121,3 +121,7 @@ Footer{
   width: 100%;
 }
 
+.imagenes-card {
+  height: 200px; /* Ajusta la altura según tus necesidades */
+  object-fit: cover; /* Asegura que la imagen cubra el área sin distorsionarse */
+}

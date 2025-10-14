@@ -12,7 +12,7 @@ export default function AppCard({producto}) {
     return (
 
     <Card className="tarjeta-producto" style={{ width: '18rem' }}>
-      <Card.Img variant="top" src="Imagenes/guitarra1.webp" />
+      <Card.Img className="imagenes-card" variant="top" src={producto.imagen} />
       <Card.Body>
         <Card.Title style={{color:"#ffffff"}}>{producto.nombre}</Card.Title>
         <Card.Text style={{color:"#ffffff"}}>
