@@ -26,39 +26,34 @@ function CatalogoTeclados() {
   { "id": 16, "nombre": "Piano Digital Avanzado", "descripcion": "Piano con 88 teclas, conexión Bluetooth y efectos de sonido", "precio": "$1400", "imagen":"Imagenes/teclado 16.jpg" }
 ];
 
-  const [filtro, setFiltro] = useState("");
-
-  // ✅ Filtra las guitarras según lo que el usuario escriba
-  const tecladosFiltrados = teclados.filter((teclado) =>
-    teclado.nombre.toLowerCase().includes(filtro.toLowerCase())
-  );
-
-  return (
-      <Container fluid className="text-center">
-          <Row className="mb-3">
-              <AppNavBar nombre="Joaquin" />
-          </Row>
-
-          <Row className="justify-content-center">
-              <AppSearch onSearch={setFiltro} />
-          </Row>
-
-          <Row className="mt-4 text-center">
-              {tecladosFiltrados.length > 0 ? (
-                  tecladosFiltrados.map((teclado) => (
-                      <Col key={teclado.id} xs={12} sm={6} md={4} lg={3} className="mb-4">
-                          <AppCard producto={teclado} />
-                      </Col>
-                  ))
-              ) : (
-                  <p>No se encontraron productos</p>
-              )}
-          </Row>
-          
-              <Row className="mb-3">
-                  <Footer />
-              </Row>
-
+   const [productosFiltrados, setProductosFiltrados] = useState(guitarras);
+  
+    const handleSearch = (texto) => {
+      if (texto.trim() === "") {
+        setProductosFiltrados(guitarras); // 👈 Si está vacío, muestra todo
+      } else {
+        const resultado = guitarras.filter((item) =>
+          item.nombre.toLowerCase().includes(texto.toLowerCase())
+        );
+        setProductosFiltrados(resultado);
+      }
+    };
+  
+    return (
+      <Container  className="text-center mt-3">
+        <Row className="mb-3">
+          <AppNavBar nombre="Joaquin" />
+        </Row>
+  
+        <Row>
+          <AppSearch onSearch={handleSearch} />
+        </Row>
+  
+        <Row className="mt-3">
+          {productosFiltrados.map((guitarra) => (
+            <AppCard key={guitarra.id} producto={guitarra} />
+          ))}
+        </Row>
       </Container>
   );
 }

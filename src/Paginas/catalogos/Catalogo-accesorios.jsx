@@ -27,40 +27,35 @@ function CatalogoAccesorios() {
 ]
 ;
 
-  const [filtro, setFiltro] = useState("");
+ const [productosFiltrados, setProductosFiltrados] = useState(accesorios);
 
-  // ✅ Filtra las guitarras según lo que el usuario escriba
-  const accesoriosFiltrados = accesorios.filter((accesorio) =>
-    accesorio.nombre.toLowerCase().includes(filtro.toLowerCase())
-  );
+  const handleSearch = (texto) => {
+    if (texto.trim() === "") {
+      setProductosFiltrados(accesorios); // 👈 Si está vacío, muestra todo
+    } else {
+      const resultado = accesorios.filter((item) =>
+        item.nombre.toLowerCase().includes(texto.toLowerCase())
+      );
+      setProductosFiltrados(resultado);
+    }
+  };
 
   return (
-      <Container fluid className="text-center">
-          <Row className="mb-3">
-              <AppNavBar nombre="Joaquin" />
-          </Row>
+    <Container  className="text-center mt-3">
+      <Row className="mb-3">
+        <AppNavBar nombre="Joaquin" />
+      </Row>
 
-          <Row className="justify-content-center">
-              <AppSearch onSearch={setFiltro} />
-          </Row>
+      <Row>
+        <AppSearch onSearch={handleSearch} />
+      </Row>
 
-          <Row className="mt-4 text-center">
-              {accesoriosFiltrados.length > 0 ? (
-                  accesoriosFiltrados.map((accesorio) => (
-                      <Col key={accesorios.id} xs={12} sm={6} md={4} lg={3} className="mb-4">
-                          <AppCard producto={accesorio} />
-                      </Col>
-                  ))
-              ) : (
-                  <p>No se encontraron productos</p>
-              )}
-          </Row>
-          
-              <Row className="mb-3">
-                  <Footer />
-              </Row>
-
-      </Container>
+      <Row className="mt-3">
+        {productosFiltrados.map((accesorios) => (
+          <AppCard key={accesorios.id} producto={accesorios} />
+        ))}
+      </Row>
+    </Container>
   );
 }
 

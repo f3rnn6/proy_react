@@ -17,6 +17,7 @@ body {
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   background-color: #000000 !important;
+  border: #ffffff 4px solid !important;
 }
 
 .tarjeta-producto:hover {
