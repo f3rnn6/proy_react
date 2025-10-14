@@ -4,7 +4,7 @@ import AppNavBar from "../../componentes/navbar";
 import AppSearch from "../../componentes/SearchBar";
 import AppCard from "../../componentes/Card";
 import Footer from "../../componentes/footer";
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function CatalogoAccesorios() {
   const accesorios = [

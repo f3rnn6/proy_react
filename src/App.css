@@ -18,6 +18,7 @@ body {
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   background-color: #000000 !important;
+  animation: fadeIn 0.6s ease-in-out;
   border: #ffffff 4px solid !important;
   padding: 15px;
 }
@@ -131,14 +132,16 @@ Footer{
 
 
 .flex-column .nav-link {
-  background-color: #ffd700;
-  color: rgb(0, 0, 0) !important; /* forzar color blanco */
+  background-color: #ffffff !important;
+  color: rgb(0, 0, 0,5) !important; /* forzar color blanco */
   margin-bottom: 10px; /* Espacio entre los enlaces */
+  border-radius: 15px;
 }
 
 .barra-navegacion .dropdown-item {
   background-color: #000000 !important; 
   color: white !important; /* forzar color blanco */
+  border: #000000 4px solid !important;
 }
 
 .offcanvas {
@@ -156,4 +159,191 @@ Footer{
 .dropdown-menu {
   background-color: #000000 !important; 
   border: none;
-}{}
+}
+
+.flex-column .nav-link:hover{
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  background-color: #fdfd0d!important;
+
+}
+
+/* Fondo general de la página */
+.favoritos-content {
+  min-height: 100vh; /* ocupa toda la pantalla */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Rectángulo del mensaje vacío */
+.mensaje-vacio-card {
+  background-color: #1e1e1e; /* gris oscuro (contrasta con fondo) */
+  padding: 2rem 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.05); /* sombra clara */
+  text-align: center;
+  width: 90%;
+  max-width: 380px;
+  color: #fff;
+  animation: fadeIn 0.6s ease-in-out;
+  border: 1px solid rgba(255, 255, 255, 0.1); /* leve borde visible */
+}
+
+/* Texto */
+.mensaje-vacio-card h2 {
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+}
+
+.mensaje-vacio-card p {
+  font-size: 1rem;
+  color: #cfcfcf;
+}
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.favoritos-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2rem 4rem 1rem 4rem;
+}
+
+.boton-eliminar-modo {
+  background-color: #000000;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.boton-eliminar-modo:hover {
+  background-color: #e03e3e;
+}
+
+.favoritos-lista {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.card-wrapper {
+  position: relative;
+}
+
+.boton-x {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.85);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+}
+
+.boton-x:hover {
+  background: rgba(200, 0, 0, 1);
+}
+
+/* Fondo de modal */
+.modal-confirmacion {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* Card del modal */
+.modal-card {
+  background-color: #1e1e1e;
+  color: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  width: 90%;
+  max-width: 350px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-card h3 {
+  margin-bottom: 1rem;
+}
+
+.modal-card p {
+  margin-bottom: 1.5rem;
+  color: #ccc;
+}
+
+/* Botones modal */
+.modal-buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+.boton-cancelar {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: none;
+  background-color: #555;
+  color: #fff;
+  cursor: pointer;
+}
+
+.boton-cancelar:hover {
+  background-color: #777;
+}
+
+.boton-confirmar {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: none;
+  background-color: #ff4d4d;
+  color: #fff;
+  cursor: pointer;
+}
+
+.boton-confirmar:hover {
+  background-color: #e03e3e;
+}
+
+/* Animación fadeIn */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -13,12 +13,12 @@ export default function AppNavBar({ nombre }) {
 
       <Navbar expand="lg" className="barra-navegacion">
         <Container fluid="lg">
-          <Navbar.Brand href="#home">Melody Store</Navbar.Brand>
+          <Navbar.Brand as={Link} to="/">Melody Store</Navbar.Brand>
           <Navbar.Text className="text-white">Hola {nombre} sigue disfrutando de la musica!</Navbar.Text>
           <Navbar.Toggle aria-controls="offcanvasNavbar" onClick={handleShow} />
           <Navbar.Collapse className="text-end">
             <Nav className="ms-auto d-none d-lg-flex align-items-center">
-              <Nav.Link href="#home">Home</Nav.Link>
+              <Nav.Link as={Link} to="/favoritos">Favoritos</Nav.Link>
               <NavDropdown title="Perfil" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">Actualizar datos</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2"> Cerrar sesion</NavDropdown.Item>

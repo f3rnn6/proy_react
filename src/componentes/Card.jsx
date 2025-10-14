@@ -1,30 +1,55 @@
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
-import '../App.css';
+import { useState } from "react";
+import { Card, Button } from "react-bootstrap";
 
-export default function AppCard({producto}) {
-  
-    function favorito(){
-        alert("clicked")
+function AppCard({ producto }) {
+  const [modalAgregado, setModalAgregado] = useState(false);
+
+  const handleAgregarFavorito = () => {
+    const favoritosGuardados = JSON.parse(localStorage.getItem("favoritos")) || [];
+    const yaExiste = favoritosGuardados.some((item) => item.id === producto.id);
+
+    if (!yaExiste) {
+      const nuevosFavoritos = [...favoritosGuardados, producto];
+      localStorage.setItem("favoritos", JSON.stringify(nuevosFavoritos));
+      setModalAgregado(true); // mostrar modal
+    } else {
+      alert("⭐ Este producto ya está en favoritos");
     }
-  
-    return (
+  };
 
-    <Card className="tarjeta-producto" style={{ width: '18rem' }}>
-      <Card.Img className="imagenes-card" variant="top" src={producto.imagen} />
-      <Card.Body>
-        <Card.Title style={{color:"#ffffff"}}>{producto.nombre}</Card.Title>
-        <Card.Text style={{color:"#ffffff"}}>
-            {producto.descripcion}  
-        </Card.Text>
-        <Card.Text style={{color:"#ffffff"}}>
-            {producto.precio} 
-        </Card.Text>
-        <Button className='boton-primario' >Detalles</Button>
-        <Button className='boton-favoritos' onClick={favorito}>☆</Button>
-      </Card.Body>
-    </Card>
-  
+  return (
+    <>
+      <Card className="tarjeta-producto" style={{ width: "18rem" }}>
+        <Card.Img className="imagenes-card" variant="top" src={producto.imagen} />
+        <Card.Body>
+          <Card.Title style={{ color: "#ffffff" }}>{producto.nombre}</Card.Title>
+          <Card.Text style={{ color: "#ffffff" }}>{producto.descripcion}</Card.Text>
+          <Card.Text style={{ color: "#ffffff" }}>{producto.precio}</Card.Text>
+
+          <Button className="boton-primario">Detalles</Button>
+          <Button className="boton-favoritos" onClick={handleAgregarFavorito}>
+            ☆
+          </Button>
+        </Card.Body>
+      </Card>
+
+      {/* Modal de agregado */}
+      {modalAgregado && (
+        <div className="modal-confirmacion">
+          <div className="modal-card">
+            <h3>✅ Producto agregado a favoritos</h3>
+            <p>{producto.nombre}</p>
+            <button
+              className="boton-confirmar"
+              onClick={() => setModalAgregado(false)}
+            >
+              Aceptar
+            </button>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 
+export default AppCard;
