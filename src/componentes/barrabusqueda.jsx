@@ -1,37 +1,32 @@
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
 import { useState } from 'react';
-import col from 'react-bootstrap/Col';
-import Col from 'react-bootstrap/Col';
+import { Button, Form, InputGroup, Col } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../App.css';
 
-export default function AppSearch() {
 
-const [busqueda, setbusqueda] = useState("");
-const handlesearch = (e) => {
-    e.preventDefault
-    alert(busqueda)
-    
-}
+export default function AppSearch({ onSearch }) {
+  const [busqueda, setBusqueda] = useState("");
+
+  const handleSearch = (e) => {
+    e.preventDefault(); 
+    onSearch(busqueda);
+  };
 
   return (
-   <Col md={{ span: 6, offset: 3 }}>
-    <InputGroup size="lg"  className="mb-3">
-      <Form.Control
-        placeholder="Buscar"
-        aria-label="Recipient's username"
-        aria-describedby="basic-addon2"
-        value={busqueda}
-        onChange={(e) => setbusqueda(e.target.value)}
-      />
-      <Button 
-        variant="outline-secondary"
-        id="button-addon2"
-        onClick={handlesearch}>       
-        Buscar
-      </Button>
-    </InputGroup>
+    <Col md={6} className="mx-auto my-4">
+      <Form onSubmit={handleSearch}>
+        <InputGroup size="lg" className="mb-3">
+          <Form.Control
+            placeholder="Buscar producto..."
+            value={busqueda}
+            onChange={(e) => setBusqueda(e.target.value)}
+          />
+          <Button type="submit" className='boton-primario'>
+            Buscar
+          </Button>
+        </InputGroup>
+      </Form>
     </Col>
-    
-    )
+  );
 }
+

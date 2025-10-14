@@ -1,42 +1,123 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+.barra-navegacion {
+  background-color: #000000; /* azul Bootstrap */
+  color: white; /* texto blanco */
+  padding: 10px 20px;
+}
+
+body {
+  background-color: #000000; 
+  margin: 0; /* opcional: eliminar margen por defecto */
+  font-family: Arial, sans-serif;
+}
+
+
+.tarjeta-producto {
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: #000000 !important;
+}
+
+.tarjeta-producto:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.titulo {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #fdfd0d !important; 
+}
+
+.descripcion {
+  color: #ffffff !important;
+  font-size: 0.9rem;
+}
+
+.precio {
+  color: #198754 !important; /* verde bootstrap */
+  font-weight: bold;
+}
+
+.boton-primario {
+  background-color: #fff764 !important;
+  border: none;
+  color: rgb(0, 0, 0) !important;
+  padding: 10px 20px;
   text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.boton-favoritos {
+  background-color: #000000 !important;
+  border: none;
+  color: #fff764 !important;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.boton-primario:hover {
+  background-color: #000000 !important;
+  color: #ffeb3b !important;
 }
 
-.card {
-  padding: 2em;
+.boton-favoritos:hover {
+  background-color: #2648df !important;
+  color: #000000 !important;
 }
 
-.read-the-docs {
-  color: #888;
+/* Fondo de toda la página */
+body {
+  background-color: #2833cb; /* gris claro */
+  margin: 0;
+  font-family: Arial, sans-serif;
 }
+
+/* Estilos para la barra de navegación */
+
+
+.barra-navegacion .navbar-brand,
+.barra-navegacion .nav-link,
+.barra-navegacion .navbar-text,
+.barra-navegacion .dropdown-item {
+  color: white !important; /* forzar color blanco */
+}
+
+.barra-navegacion .nav-link:hover,
+.barra-navegacion .dropdown-item:hover {
+  color: #ffd700 !important; /* dorado al pasar el mouse */
+}
+
+.barra-navegacion .navbar-text{
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #fdfd0d !important;
+  text-align: right !important;
+
+}
+
+Footer{
+  margin-top: 5;
+  background-color: #000000 !important; 
+  color: white; /* texto  */
+  text-align: center;
+  padding: 10px 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
