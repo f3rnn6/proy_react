@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Navbar, Nav, Container, Button, Offcanvas } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 export default function AppNavBar({ nombre }) {
   const [show, setShow] = useState(false);
@@ -34,10 +35,10 @@ export default function AppNavBar({ nombre }) {
         </Offcanvas.Header>
         <Offcanvas.Body>
           <Nav className="flex-column">
-            <Nav.Link href="#percusion" onClick={handleClose}>Home</Nav.Link>
-            <Nav.Link href="#guitarras" onClick={handleClose}>Guitarras</Nav.Link>
-            <Nav.Link href="#bajos" onClick={handleClose}>Bajos</Nav.Link>
-            <Nav.Link href="#accesorios" onClick={handleClose}>Accesorios</Nav.Link>
+            <Nav.Link as={Link} to="/" onClick={handleClose}>Home</Nav.Link>
+            <Nav.Link as={Link} to="/catalogoguitarras" onClick={handleClose}>Guitarras</Nav.Link>
+            <Nav.Link as={Link} to="/catalogoteclados" onClick={handleClose}>Teclados</Nav.Link>
+            <Nav.Link as={Link} to="/catalogoaccesorios" onClick={handleClose}>Accesorios</Nav.Link>
           </Nav>
         </Offcanvas.Body>
       </Offcanvas>

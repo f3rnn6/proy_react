@@ -27,39 +27,34 @@ function CatalogoBaterias() {
 ]
 ;
 
-  const [filtro, setFiltro] = useState("");
-
-  // ✅ Filtra las guitarras según lo que el usuario escriba
-  const bateriasFiltradas = baterias.filter((bateria) =>
-    bateria.nombre.toLowerCase().includes(filtro.toLowerCase())
-  );
-
-  return (
-      <Container fluid className="text-center">
-          <Row className="mb-3">
-              <AppNavBar nombre="Joaquin" />
-          </Row>
-
-          <Row className="justify-content-center">
-              <AppSearch onSearch={setFiltro} />
-          </Row>
-
-          <Row className="mt-4 text-center">
-              {bateriasFiltradas.length > 0 ? (
-                  bateriasFiltradas.map((bateria) => (
-                      <Col key={baterias.id} xs={12} sm={6} md={4} lg={3} className="mb-4">
-                          <AppCard producto={bateria} />
-                      </Col>
-                  ))
-              ) : (
-                  <p>No se encontraron productos</p>
-              )}
-          </Row>
-          
-              <Row className="mb-3">
-                  <Footer />
-              </Row>
-
+   const [productosFiltrados, setProductosFiltrados] = useState(baterias);
+  
+    const handleSearch = (texto) => {
+      if (texto.trim() === "") {
+        setProductosFiltrados(baterias); 
+      } else {
+        const resultado = baterias.filter((item) =>
+          item.nombre.toLowerCase().includes(texto.toLowerCase())
+        );
+        setProductosFiltrados(resultado);
+      }
+    };
+  
+    return (
+      <Container  className="text-center mt-3">
+        <Row className="mb-3">
+          <AppNavBar nombre="Joaquin" />
+        </Row>
+  
+        <Row>
+          <AppSearch onSearch={handleSearch} />
+        </Row>
+  
+        <Row className="mt-3">
+          {productosFiltrados.map((bateria) => (
+            <AppCard key={bateria.id} producto={bateria} />
+          ))}
+        </Row>
       </Container>
   );
 }

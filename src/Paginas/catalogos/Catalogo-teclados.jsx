@@ -26,13 +26,13 @@ function CatalogoTeclados() {
   { "id": 16, "nombre": "Piano Digital Avanzado", "descripcion": "Piano con 88 teclas, conexión Bluetooth y efectos de sonido", "precio": "$1400", "imagen":"Imagenes/teclado 16.jpg" }
 ];
 
-   const [productosFiltrados, setProductosFiltrados] = useState(guitarras);
+   const [productosFiltrados, setProductosFiltrados] = useState(teclados);
   
     const handleSearch = (texto) => {
       if (texto.trim() === "") {
-        setProductosFiltrados(guitarras); // 👈 Si está vacío, muestra todo
+        setProductosFiltrados(teclados); 
       } else {
-        const resultado = guitarras.filter((item) =>
+        const resultado = teclados.filter((item) =>
           item.nombre.toLowerCase().includes(texto.toLowerCase())
         );
         setProductosFiltrados(resultado);
@@ -50,8 +50,8 @@ function CatalogoTeclados() {
         </Row>
   
         <Row className="mt-3">
-          {productosFiltrados.map((guitarra) => (
-            <AppCard key={guitarra.id} producto={guitarra} />
+          {productosFiltrados.map((teclado) => (
+            <AppCard key={teclado.id} producto={teclado} />
           ))}
         </Row>
       </Container>

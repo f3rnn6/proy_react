@@ -31,7 +31,7 @@ function CatalogoAccesorios() {
 
   const handleSearch = (texto) => {
     if (texto.trim() === "") {
-      setProductosFiltrados(accesorios); // 👈 Si está vacío, muestra todo
+      setProductosFiltrados(accesorios); 
     } else {
       const resultado = accesorios.filter((item) =>
         item.nombre.toLowerCase().includes(texto.toLowerCase())

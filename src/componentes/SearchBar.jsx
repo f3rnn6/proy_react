@@ -7,14 +7,10 @@ import { useState } from 'react';
 export default function AppSearch({ onSearch }) {
   const [busqueda, setBusqueda] = useState("");
 
-  const handleSearch = () => {
-    onSearch(busqueda); // Envía el texto al padre
-  };
-
   const handleChange = (e) => {
     const valor = e.target.value;
     setBusqueda(valor);
-    onSearch(valor); // Envía el valor en tiempo real al padre
+    onSearch(valor); 
   };
 
   return (

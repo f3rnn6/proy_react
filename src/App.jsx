@@ -10,12 +10,21 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import CatalogoAccesorios from './Paginas/catalogos/Catalogo-accesorios';
 import CatalogoTeclados from './Paginas/catalogos/Catalogo-teclados';
 import CatalogoBaterias from './Paginas/catalogos/Catalogo-baterias';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 export default function App() {
 
 
   return (
-   <CatalogoAccesorios/>
-  )
+    <Router>
+      <Routes>
+        <Route path="/" element={<CatalogoBaterias />} /> {/* Página principal */}
+        <Route path="/catalogoguitarras" element={<CatalogoGuitarras />} /> {/* Catálogo */}
+        <Route path="/catalogoaccesorios" element={<CatalogoAccesorios />} /> {/* Contacto */}
+        <Route path="/catalogoteclados" element={<CatalogoTeclados/>} /> {/* Contacto */}
+      </Routes>
+    </Router>
+  );
 }
+
 
 
