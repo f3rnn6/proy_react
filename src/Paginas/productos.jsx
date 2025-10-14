@@ -24,17 +24,13 @@ function Productos() {
   };
 
   return (
-    <Container className="mt-3">
-      {/* Navbar */}
-      <AppNavBar nombre="Joaquin" />
+    <Container>
+        <AppNavBar nombre="Joaquin" />
 
-      {/* Buscador */}
       <AppSearch onSearch={handleSearch} />
-
-      {/* Lista de productos */}
-      <Row className="mt-3">
+      <Row >
         {productosFiltrados.map((producto) => (
-          <Col key={producto.id} xs={12} sm={6} md={4} lg={3} className="mb-4">
+          <Col >
             <AppCard producto={producto} />
           </Col>
         ))}

@@ -40,7 +40,7 @@ export default function AppNavBar({ nombre }) {
         </Offcanvas.Header>
         <Offcanvas.Body className="d-flex flex-column h-100">
           <Nav className="flex-column">
-            <Nav.Link as={Link} to="/" onClick={handleClose}>Home</Nav.Link>
+            <Nav.Link as={Link} to="/catalogobaterias" onClick={handleClose}>Baterias</Nav.Link>
             <Nav.Link as={Link} to="/catalogoguitarras" onClick={handleClose}>Guitarras</Nav.Link>
             <Nav.Link as={Link} to="/catalogoteclados" onClick={handleClose}>Teclados</Nav.Link>
             <Nav.Link as={Link} to="/catalogoaccesorios" onClick={handleClose}>Accesorios</Nav.Link>
