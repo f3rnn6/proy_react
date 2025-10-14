@@ -12,6 +12,7 @@ import CatalogoTeclados from './Paginas/catalogos/Catalogo-teclados';
 import CatalogoBaterias from './Paginas/catalogos/Catalogo-baterias';
 import Favoritos from './Paginas/favoritos';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import DetalleProductos from './Paginas/DetalleProductos';
 export default function App() {
 
 
@@ -23,6 +24,7 @@ export default function App() {
         <Route path="/catalogoaccesorios" element={<CatalogoAccesorios />} /> 
         <Route path="/catalogoteclados" element={<CatalogoTeclados/>} /> 
         <Route path="/favoritos" element={<Favoritos/>} /> 
+        <Route path="/detalleproductos/:id" element={<DetalleProductos/>} /> 
       </Routes>
     </Router>
   );

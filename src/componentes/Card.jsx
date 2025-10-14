@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Card, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function AppCard({ producto }) {
   const [modalAgregado, setModalAgregado] = useState(false);
+
 
   const handleAgregarFavorito = () => {
     const favoritosGuardados = JSON.parse(localStorage.getItem("favoritos")) || [];
@@ -25,8 +27,11 @@ function AppCard({ producto }) {
           <Card.Title style={{ color: "#ffffff" }}>{producto.nombre}</Card.Title>
           <Card.Text style={{ color: "#ffffff" }}>{producto.descripcion}</Card.Text>
           <Card.Text style={{ color: "#ffffff" }}>{producto.precio}</Card.Text>
-
-          <Button className="boton-primario">Detalles</Button>
+          <Link to={`/detalleproductos/${producto.id}`} >
+            <Button className="boton-primario" >
+              Ver Detalle
+            </Button>
+          </Link>
           <Button className="boton-favoritos" onClick={handleAgregarFavorito}>
             ☆
           </Button>

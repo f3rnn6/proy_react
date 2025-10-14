@@ -18,6 +18,7 @@ export default function AppNavBar({ nombre }) {
           <Navbar.Toggle aria-controls="offcanvasNavbar" onClick={handleShow} />
           <Navbar.Collapse className="text-end">
             <Nav className="ms-auto d-none d-lg-flex align-items-center">
+              <Nav.Link as={Link} to="/favoritos">Carrito</Nav.Link>
               <Nav.Link as={Link} to="/favoritos">Favoritos</Nav.Link>
               <NavDropdown title="Perfil" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">Actualizar datos</NavDropdown.Item>
