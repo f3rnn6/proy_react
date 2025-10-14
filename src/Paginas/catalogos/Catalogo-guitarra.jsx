@@ -1,33 +1,44 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import AppNavBar from "../../componentes/navbar";
 import AppSearch from "../../componentes/SearchBar";
 import AppCard from "../../componentes/Card";
 import Footer from "../../componentes/footer";
-import { productos } from "../../data/productos"; // <-- importamos tus productos
+import { productos as productosOriginales } from "../../data/productos";
 
 function CatalogoGuitarras() {
-  // Filtramos solo los accesorios del JSON
-  const guitarrasData = productos.filter(p => p.categoria === "guitarras y bajos");
+  const [productos, setProductos] = useState([]);
+  const [productosFiltrados, setProductosFiltrados] = useState([]);
 
-  // Estado para productos filtrados
-  const [productosFiltrados, setProductosFiltrados] = useState(guitarrasData);
+  useEffect(() => {
+    const productosGuardados = JSON.parse(localStorage.getItem("productos"));
+    const productosCompletos = productosGuardados?.length
+      ? productosGuardados
+      : productosOriginales;
 
-  // Función de búsqueda
+    setProductos(productosCompletos);
+    setProductosFiltrados(productosCompletos.filter(p => p.categoria === "guitarras y bajos"));
+
+    if (!productosGuardados?.length) {
+      localStorage.setItem("productos", JSON.stringify(productosOriginales));
+    }
+  }, []);
+
   const handleSearch = (texto) => {
-    if (texto.trim() === "") {
-      setProductosFiltrados(guitarrasData); 
+    if (!texto.trim()) {
+      setProductosFiltrados(productos.filter(p => p.categoria === "guitarras y bajos"));
     } else {
-      const resultado = guitarrasData.filter((item) =>
-        item.nombre.toLowerCase().includes(texto.toLowerCase())
+      setProductosFiltrados(
+        productos
+          .filter(p => p.categoria === "guitarras y bajos")
+          .filter(p => p.nombre.toLowerCase().includes(texto.toLowerCase()))
       );
-      setProductosFiltrados(resultado);
     }
   };
 
   return (
-    <Container >
-      <Row >
+    <Container>
+      <Row>
         <AppNavBar nombre="Joaquin" />
       </Row>
 
@@ -35,10 +46,10 @@ function CatalogoGuitarras() {
         <AppSearch onSearch={handleSearch} />
       </Row>
 
-      <Row >
-        {productosFiltrados.map((guitarra) => (
-          <Col >
-            <AppCard producto={guitarra} />
+      <Row>
+        {productosFiltrados.map((item) => (
+          <Col key={item.id} md={4} className="mb-3">
+            <AppCard producto={item} />
           </Col>
         ))}
       </Row>

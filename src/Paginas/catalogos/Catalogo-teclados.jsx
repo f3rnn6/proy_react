@@ -1,33 +1,44 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import AppNavBar from "../../componentes/navbar";
 import AppSearch from "../../componentes/SearchBar";
 import AppCard from "../../componentes/Card";
 import Footer from "../../componentes/footer";
-import { productos } from "../../data/productos"; // <-- importamos tus productos
+import { productos as productosOriginales } from "../../data/productos";
 
 function CatalogoTeclados() {
-  // Filtramos solo los accesorios del JSON
-  const tecladossData = productos.filter(p => p.categoria === "teclados");
+  const [productos, setProductos] = useState([]);
+  const [productosFiltrados, setProductosFiltrados] = useState([]);
 
-  // Estado para productos filtrados
-  const [productosFiltrados, setProductosFiltrados] = useState(tecladossData);
+  useEffect(() => {
+    const productosGuardados = JSON.parse(localStorage.getItem("productos"));
+    const productosCompletos = productosGuardados?.length
+      ? productosGuardados
+      : productosOriginales;
 
-  // Función de búsqueda
+    setProductos(productosCompletos);
+    setProductosFiltrados(productosCompletos.filter(p => p.categoria === "teclados"));
+
+    if (!productosGuardados?.length) {
+      localStorage.setItem("productos", JSON.stringify(productosOriginales));
+    }
+  }, []);
+
   const handleSearch = (texto) => {
-    if (texto.trim() === "") {
-      setProductosFiltrados(tecladossData); 
+    if (!texto.trim()) {
+      setProductosFiltrados(productos.filter(p => p.categoria === "teclados"));
     } else {
-      const resultado = tecladossData.filter((item) =>
-        item.nombre.toLowerCase().includes(texto.toLowerCase())
+      setProductosFiltrados(
+        productos
+          .filter(p => p.categoria === "teclados")
+          .filter(p => p.nombre.toLowerCase().includes(texto.toLowerCase()))
       );
-      setProductosFiltrados(resultado);
     }
   };
 
   return (
-    <Container >
-      <Row >
+    <Container>
+      <Row>
         <AppNavBar nombre="Joaquin" />
       </Row>
 
@@ -35,10 +46,10 @@ function CatalogoTeclados() {
         <AppSearch onSearch={handleSearch} />
       </Row>
 
-      <Row >
-        {productosFiltrados.map((teclado) => (
-          <Col >
-            <AppCard producto={teclado} />
+      <Row>
+        {productosFiltrados.map((item) => (
+          <Col key={item.id} md={4} className="mb-3">
+            <AppCard producto={item} />
           </Col>
         ))}
       </Row>

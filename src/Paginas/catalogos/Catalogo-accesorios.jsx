@@ -1,33 +1,47 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import AppNavBar from "../../componentes/navbar";
 import AppSearch from "../../componentes/SearchBar";
 import AppCard from "../../componentes/Card";
 import Footer from "../../componentes/footer";
-import { productos } from "../../data/productos"; // <-- importamos tus productos
+import { productos as productosOriginales } from "../../data/productos";
 
 function CatalogoAccesorios() {
-  // Filtramos solo los accesorios del JSON
-  const accesoriosData = productos.filter(p => p.categoria === "accesorio");
+  const [productos, setProductos] = useState([]);
+  const [productosFiltrados, setProductosFiltrados] = useState([]);
 
-  // Estado para productos filtrados
-  const [productosFiltrados, setProductosFiltrados] = useState(accesoriosData);
+  useEffect(() => {
+    // Cargar productos de localStorage
+    const productosGuardados = JSON.parse(localStorage.getItem("productos"));
+    const productosCompletos = productosGuardados && productosGuardados.length
+      ? productosGuardados
+      : productosOriginales;
 
-  // Función de búsqueda
+    setProductos(productosCompletos);
+
+    // Filtrar solo accesorios
+    setProductosFiltrados(productosCompletos.filter(p => p.categoria === "accesorio"));
+
+    // Inicializar localStorage si estaba vacío
+    if (!productosGuardados || !productosGuardados.length) {
+      localStorage.setItem("productos", JSON.stringify(productosOriginales));
+    }
+  }, []);
+
   const handleSearch = (texto) => {
     if (texto.trim() === "") {
-      setProductosFiltrados(accesoriosData); 
+      setProductosFiltrados(productos.filter(p => p.categoria === "accesorio"));
     } else {
-      const resultado = accesoriosData.filter((item) =>
-        item.nombre.toLowerCase().includes(texto.toLowerCase())
-      );
+      const resultado = productos
+        .filter(p => p.categoria === "accesorio")
+        .filter(p => p.nombre.toLowerCase().includes(texto.toLowerCase()));
       setProductosFiltrados(resultado);
     }
   };
 
   return (
-    <Container >
-      <Row >
+    <Container>
+      <Row>
         <AppNavBar nombre="Joaquin" />
       </Row>
 
@@ -35,9 +49,9 @@ function CatalogoAccesorios() {
         <AppSearch onSearch={handleSearch} />
       </Row>
 
-      <Row >
+      <Row>
         {productosFiltrados.map((accesorio) => (
-          <Col >
+          <Col key={accesorio.id} md={4} className="mb-3">
             <AppCard producto={accesorio} />
           </Col>
         ))}
