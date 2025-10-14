@@ -22,7 +22,7 @@ export default function AppNavBar({ nombre }) {
               <Nav.Link as={Link} to="/">Carrito</Nav.Link>
               <Nav.Link as={Link} to="/favoritos">Favoritos</Nav.Link>
               <NavDropdown title="Perfil" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Actualizar datos</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/administrador">Actualizar datos</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2"> Cerrar sesion</NavDropdown.Item>
                 
               </NavDropdown>

@@ -12,19 +12,22 @@ import Favoritos from './Paginas/favoritos';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import DetalleProductos from './Paginas/DetalleProductos';
 import Productos from './Paginas/productos';
+import Administrador from './Paginas/Administrador';
 export default function App() {
 
 
   return (
     <Router>
       <Routes>
+        <Route path="/" element={<Productos />} /> 
         <Route path="/productos" element={<Productos />} /> 
         <Route path="/catalogobaterias" element={<CatalogoBaterias />} /> 
         <Route path="/catalogoguitarras" element={<CatalogoGuitarras />} /> 
         <Route path="/catalogoaccesorios" element={<CatalogoAccesorios />} /> 
         <Route path="/catalogoteclados" element={<CatalogoTeclados/>} /> 
         <Route path="/favoritos" element={<Favoritos/>} /> 
-        <Route path="/detalleproductos/:id" element={<DetalleProductos/>} /> 
+        <Route path="/administrador" element={<Administrador/>} /> 
+
       </Routes>
     </Router>
   );
