@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Container, Row, Col, Button, Form, Card, Modal } from "react-bootstrap";
 import AppNavBar from "../componentes/navbar";
 import { productos as productosOriginales } from "../data/productos";
+import { validarProducto } from "../utils/validaciones";
 import "../App.css";
 
 function Administrador() {
@@ -14,6 +15,8 @@ function Administrador() {
     imagen: "",
     detalle: "",
   });
+  const [errores, setErrores] = useState({});
+  const [touched, setTouched] = useState({});
   const [modalEliminar, setModalEliminar] = useState({ show: false, id: null });
 
   useEffect(() => {
@@ -35,14 +38,21 @@ function Administrador() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setNuevoProducto({ ...nuevoProducto, [name]: value });
+    const nuevoEstado = { ...nuevoProducto, [name]: value };
+    setNuevoProducto(nuevoEstado);
+    setErrores(validarProducto(nuevoEstado));
+  };
+
+  const handleBlur = (e) => {
+    const { name } = e.target;
+    setTouched({ ...touched, [name]: true });
   };
 
   const handleAgregar = () => {
-    if (!nuevoProducto.nombre || !nuevoProducto.categoria) {
-      alert("Nombre y categoría son obligatorios");
-      return;
-    }
+    const validacion = validarProducto(nuevoProducto);
+    setErrores(validacion);
+
+    if (Object.keys(validacion).length > 0) return;
 
     const idNuevo = productos.length ? Math.max(...productos.map(p => p.id)) + 1 : 1;
     const productoParaAgregar = { ...nuevoProducto, id: idNuevo };
@@ -57,6 +67,7 @@ function Administrador() {
       imagen: "",
       detalle: "",
     });
+    setTouched({});
   };
 
   const confirmarEliminar = (id) => {
@@ -72,22 +83,79 @@ function Administrador() {
   return (
     <Container fluid className="my-4">
       <AppNavBar nombre="Admin" />
-
       <h2 className="text-center text-warning my-3 bg-dark">Panel de Administración</h2>
 
-      {/* Formulario Agregar Producto */}
       <Card className="mb-4 p-3 bg-dark text-white shadow-sm">
         <h4 className="text-warning mb-3">Agregar Producto</h4>
         <Row className="g-2">
-          <Col md={3}><Form.Control placeholder="Nombre" name="nombre" value={nuevoProducto.nombre} onChange={handleChange} /></Col>
-          <Col md={2}><Form.Control placeholder="Categoría" name="categoria" value={nuevoProducto.categoria} onChange={handleChange} /></Col>
-          <Col md={3}><Form.Control placeholder="Descripción" name="descripcion" value={nuevoProducto.descripcion} onChange={handleChange} /></Col>
-          <Col md={1}><Form.Control placeholder="Precio" name="precio" value={nuevoProducto.precio} onChange={handleChange} /></Col>
-          <Col md={2}><Form.Control placeholder="Imagen (ruta)" name="imagen" value={nuevoProducto.imagen} onChange={handleChange} /></Col>
-          <Col md={1}><Button variant="warning" className="w-100" onClick={handleAgregar}>Agregar</Button></Col>
+          <Col md={3}>
+            <Form.Control
+              placeholder="Nombre"
+              name="nombre"
+              value={nuevoProducto.nombre}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            {touched.nombre && errores.nombre && <small className="text-danger">{errores.nombre}</small>}
+          </Col>
+
+          <Col md={2}>
+            <Form.Control
+              placeholder="Categoría"
+              name="categoria"
+              value={nuevoProducto.categoria}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            {touched.categoria && errores.categoria && <small className="text-danger">{errores.categoria}</small>}
+          </Col>
+
+          <Col md={3}>
+            <Form.Control
+              placeholder="Descripción"
+              name="descripcion"
+              value={nuevoProducto.descripcion}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            {touched.descripcion && errores.descripcion && <small className="text-danger">{errores.descripcion}</small>}
+          </Col>
+
+          <Col md={1}>
+            <Form.Control
+              placeholder="Precio"
+              name="precio"
+              value={nuevoProducto.precio}
+              onChange={handleChange}
+              type="number"
+            />
+          </Col>
+
+          <Col md={2}>
+            <Form.Control
+              placeholder="Imagen (ruta)"
+              name="imagen"
+              value={nuevoProducto.imagen}
+              onChange={handleChange}
+            />
+          </Col>
+
+          <Col md={1}>
+            <Button variant="warning" className="w-100" onClick={handleAgregar}>
+              Agregar
+            </Button>
+          </Col>
         </Row>
+
         <Form.Group className="mt-2">
-          <Form.Control placeholder="Detalle del producto" name="detalle" value={nuevoProducto.detalle} onChange={handleChange} />
+          <Form.Control
+            placeholder="Detalle del producto"
+            name="detalle"
+            value={nuevoProducto.detalle}
+            onChange={handleChange}
+            onBlur={handleBlur}
+          />
+          {touched.detalle && errores.detalle && <small className="text-danger">{errores.detalle}</small>}
         </Form.Group>
       </Card>
 
