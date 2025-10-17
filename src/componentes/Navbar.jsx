@@ -14,10 +14,10 @@ export default function AppNavBar({ nombre }) {
       <Navbar expand="lg" className="barra-navegacion mb-5" >
         <Container fluid="lg">
           <Navbar.Brand as={Link} to="/">Melody Store</Navbar.Brand>
-          <Navbar.Text className="text-white">Hola {nombre} sigue disfrutando de la musica!</Navbar.Text>
-          <Navbar.Toggle aria-controls="offcanvasNavbar" onClick={handleShow} />
+          <Navbar.Text className="titulo-persona">Hola {nombre} sigue disfrutando de la musica!</Navbar.Text>
+          
           <Navbar.Collapse className="text-end">
-            <Nav className="ms-auto d-none d-lg-flex align-items-center">
+            <Nav className="ms-auto align-items-center">
               <Nav.Link as={Link} to="/productos">Productos</Nav.Link>
               <Nav.Link as={Link} to="/">Carrito</Nav.Link>
               <Nav.Link as={Link} to="/favoritos">Favoritos</Nav.Link>
