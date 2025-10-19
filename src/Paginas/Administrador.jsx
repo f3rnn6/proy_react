@@ -163,20 +163,28 @@ function Administrador() {
       <Row className="g-3" style={{ maxHeight: "70vh", overflowY: "auto" }}>
         {productos.map((p) => (
           <Col md={4} key={p.id}>
-            <Card className="h-100 shadow-sm border-warning">
+            <Card
+              className="h-100 shadow-sm border-warning"
+              data-testid="producto-card" // <-- agregado para los tests
+            >
               {p.imagen && <Card.Img variant="top" src={`/${p.imagen}`} className="producto-img" />}
               <Card.Body className="d-flex flex-column justify-content-between">
                 <div>
-                  <Card.Title className="text-warning">{p.nombre}</Card.Title>
+                  <Card.Title data-testid="producto-nombre" className="text-warning">
+                    {p.nombre}
+                  </Card.Title>
+
                   <Card.Text>{p.descripcion}</Card.Text>
                   <Card.Text className="fw-bold">{p.precio}</Card.Text>
                 </div>
-                <Button variant="danger" onClick={() => confirmarEliminar(p.id)}>Eliminar</Button>
+                <Button data-testid="btn-eliminar-producto"
+                  variant="danger" onClick={() => confirmarEliminar(p.id)}>Eliminar</Button>
               </Card.Body>
             </Card>
           </Col>
         ))}
       </Row>
+
 
       {/* Modal de confirmación */}
       <Modal show={modalEliminar.show} onHide={() => setModalEliminar({ show: false, id: null })} centered>
@@ -186,7 +194,7 @@ function Administrador() {
         <Modal.Body>¿Seguro que deseas eliminar este producto?</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setModalEliminar({ show: false, id: null })}>Cancelar</Button>
-          <Button variant="danger" onClick={handleEliminar}>Eliminar</Button>
+          <Button  variant="danger" onClick={handleEliminar}>Eliminar</Button>
         </Modal.Footer>
       </Modal>
     </Container>
