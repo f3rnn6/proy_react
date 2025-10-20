@@ -11,13 +11,13 @@ export default function AppNavBar({ nombre }) {
   return (
     <>
 
-      <Navbar expand="lg" className="barra-navegacion mb-5" >
+      <Navbar expand="lg" className="barra-navegacion mb-5 " >
         <Container fluid="lg">
           <Navbar.Brand as={Link} to="/">Melody Store</Navbar.Brand>
           <Navbar.Text className="titulo-persona">Hola {nombre} sigue disfrutando de la musica!</Navbar.Text>
           
-          <Navbar.Collapse className="text-end">
-            <Nav className="ms-auto align-items-center">
+          
+            <Nav className="ms-end align-items-center flex-column flex-lg-row align-items-lg-center">
               <Nav.Link as={Link} to="/productos">Productos</Nav.Link>
               <Nav.Link as={Link} to="/">Carrito</Nav.Link>
               <Nav.Link as={Link} to="/favoritos">Favoritos</Nav.Link>
@@ -30,7 +30,7 @@ export default function AppNavBar({ nombre }) {
                 Catalogo
               </Button>
             </Nav>
-          </Navbar.Collapse>
+          
         </Container>
       </Navbar>
 

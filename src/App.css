@@ -2,6 +2,7 @@
   background-color: #000000; /* azul Bootstrap */
   color: white; /* texto blanco */
   padding: 10px 20px;
+  text-align: right;
 }
 
 h3 {
@@ -139,8 +140,8 @@ Footer{
 
 
 .flex-column .nav-link {
-  background-color: #ffffff !important;
-  color: rgb(0, 0, 0,5) !important; /* forzar color blanco */
+  background-color: #000000 !important;
+  color: #ddd!important; /* forzar color blanco */
   margin-bottom: 10px; /* Espacio entre los enlaces */
   border-radius: 15px;
 }
@@ -256,6 +257,10 @@ Footer{
   justify-content: space-between;
   align-items: center;
   margin: 2rem 4rem 1rem 4rem;
+  background-color: #000000;
+  padding: 10px 20px;
+  color: white;
+
 }
 
 .boton-eliminar-modo {
@@ -480,4 +485,7 @@ Footer{
 .detalles{
   text-align: left;
 }
+
+.titulo-persona{
+ text-align: center;}
 
