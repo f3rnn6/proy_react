@@ -8,7 +8,6 @@ function Favoritos() {
   );
   const [modoEliminar, setModoEliminar] = useState(false);
 
-  // Estado para el modal de confirmación
   const [confirmarEliminar, setConfirmarEliminar] = useState(null);
 
   const eliminarFavorito = (id) => {

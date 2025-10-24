@@ -141,7 +141,7 @@ Footer{
 
 .flex-column .nav-link {
   background-color: #000000 !important;
-  color: #ddd!important; /* forzar color blanco */
+  color: #ffffff!important; /* forzar color blanco */
   margin-bottom: 10px; /* Espacio entre los enlaces */
   border-radius: 15px;
 }

@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import DetalleProductos from './Paginas/DetalleProductos';
 import Productos from './Paginas/productos';
 import Administrador from './Paginas/Administrador';
+import LoginPage from './Paginas/LoginPage';
 
 // 🔹 Importa los productos originales
 import { productos as productosOriginales } from './data/productos';
@@ -37,7 +38,7 @@ export default function App() {
         <Route path="/detalleproductos/:id" element={<DetalleProductos/>} /> 
         <Route path="/administrador" element={<Administrador />} /> 
         <Route path="/productos" element={<Productos />} /> 
-    
+        <Route path="/login" element={<LoginPage />} />
       </Routes>
     </Router>
   );
