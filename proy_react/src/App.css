@@ -1,42 +1,56 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+:root{
+  --brand-primary:#1d249f;
+  --brand-dark:#101529;
+  --brand-light:#f5f7ff;
+  --radius:16px;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+body{
+  color:#223;
+  background:linear-gradient(180deg, #ffffff 0%, #f7f8fc 100%);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.nav-mishirt{
+  background:var(--brand-primary);
+  color:#fff;
+}
+.nav-mishirt .navbar-brand,
+.nav-mishirt .nav-link{ color:#fff; }
+.nav-mishirt .nav-link.active{ text-decoration:underline; }
+.navbar-user{ opacity:.9; }
+
+.hero{
+  background: radial-gradient(1200px 300px at 10% -20%, var(--brand-light) 0%, #fff 60%);
+  border-bottom:1px solid #eef1ff;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.auth-wrap{
+  min-height:calc(100dvh - 56px);
+  display:grid;
+  place-items:center;
+  padding:2rem 1rem;
+}
+.auth-card{
+  width:100%;
+  max-width:420px;
+  border-radius:var(--radius);
+  box-shadow:0 20px 40px rgba(13,26,80,.08);
+  border:1px solid #eef1ff;
 }
 
-.card {
-  padding: 2em;
+.card-glow{
+  border-radius:var(--radius);
+  box-shadow:0 10px 24px rgba(0,0,0,.06);
+  border:1px solid #eef1ff;
 }
 
-.read-the-docs {
-  color: #888;
+.btn-primary{
+  background:var(--brand-primary);
+  border-color:var(--brand-primary);
+}
+.btn-outline-primary{
+  --bs-btn-color:var(--brand-primary);
+  --bs-btn-border-color:var(--brand-primary);
+  --bs-btn-hover-bg:var(--brand-primary);
+  --bs-btn-hover-border-color:var(--brand-primary);
 }
