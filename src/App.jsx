@@ -15,6 +15,7 @@ import LoginPage from './Paginas/LoginPage';
 import { productos as productosOriginales } from './data/productos';
 import { useEffect } from 'react';
 import Carrito from './Paginas/carrito';
+import RegisterPage from './Paginas/registro';
 
 export default function App() {
 
@@ -32,6 +33,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Productos />} /> 
         <Route path="/carrito" element={<Carrito />} /> 
+        <Route path="/registro" element={<RegisterPage />} /> 
         <Route path="/catalogobaterias" element={<CatalogoBaterias />} /> 
         <Route path="/catalogoguitarras" element={<CatalogoGuitarras />} /> 
         <Route path="/catalogoaccesorios" element={<CatalogoAccesorios />} /> 
