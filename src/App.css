@@ -489,3 +489,83 @@ Footer{
 .titulo-persona{
  text-align: center;}
 
+/* CONTENEDOR GENERAL DEL CARRITO */
+.carrito-container-grande {
+  width: 100%;
+  background: #141414;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+/* LISTA DE PRODUCTOS */
+.carrito-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+/* CARD DE PRODUCTO */
+.carrito-card {
+  display: flex;
+  width: 100%;
+  background: #1e1e1e;
+  border-radius: 12px;
+  padding: 1rem;
+  color: #fff;
+  min-height: 180px;
+  gap: 1rem;
+}
+
+/* IMAGEN */
+.carrito-card-img img {
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* TEXTOS */
+.carrito-card-info h2 {
+  font-size: 1.2rem;
+}
+
+.carrito-card-info p {
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+}
+
+.carrito-precio {
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+
+/* TOTAL */
+.carrito-total {
+  margin-top: 30px;
+  padding: 15px;
+  background: #222;
+  border-radius: 10px;
+  text-align: right;
+  color: #fff;
+  font-size: 1.4rem;
+}
+
+/* CARRITO VACÍO */
+.carrito-vacio-wrapper {
+  width: 100%;
+  min-height: 60vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carrito-vacio-card {
+  background: #1e1e1e;
+  padding: 2rem;
+  border-radius: 14px;
+  text-align: center;
+  color: #fff;
+  width: 90%;
+  max-width: 380px;
+}

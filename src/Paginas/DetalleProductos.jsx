@@ -20,10 +20,10 @@ function DetalleProductos() {
   }
 
   return (
-    
-      <Container className="mt-4 mb-5 detalle-container">
-        <AppNavBar />
-        <div className="detalle-fondo">
+
+    <Container className="mt-4 mb-5 detalle-container">
+      <AppNavBar />
+      <div className="detalle-fondo">
         <Row className="mt-4 detalle-info ">
           <Col md={6}>
             <img
@@ -38,21 +38,34 @@ function DetalleProductos() {
             <p>{producto.descripcion}</p>
             <h4 className="detalle-precio">{producto.precio}</h4>
 
-            <Button className="mt-3 detalle-btn">
+            <Button
+              className="mt-3 detalle-btn"
+              onClick={() => {
+                const carritoActual = JSON.parse(localStorage.getItem("carrito")) || [];
+
+                const existe = carritoActual.find((item) => item.id === producto.id);
+
+                if (!existe) {
+                  const actualizado = [...carritoActual, producto];
+                  localStorage.setItem("carrito", JSON.stringify(actualizado));
+                }
+              }}
+            >
               Agregar al carrito 🛒
             </Button>
+
             <div className="mt-3 detalles">
               <h3>Detalles del producto</h3>
-            <p>
-              {producto.detalle ||
-                "No hay detalles adicionales disponibles para este producto."}
-            </p>
+              <p>
+                {producto.detalle ||
+                  "No hay detalles adicionales disponibles para este producto."}
+              </p>
             </div>
           </Col>
         </Row>
-        </div>
-      </Container>
-    
+      </div>
+    </Container>
+
   );
 }
 

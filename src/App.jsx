@@ -14,6 +14,7 @@ import LoginPage from './Paginas/LoginPage';
 // 🔹 Importa los productos originales
 import { productos as productosOriginales } from './data/productos';
 import { useEffect } from 'react';
+import Carrito from './Paginas/carrito';
 
 export default function App() {
 
@@ -30,6 +31,7 @@ export default function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Productos />} /> 
+        <Route path="/carrito" element={<Carrito />} /> 
         <Route path="/catalogobaterias" element={<CatalogoBaterias />} /> 
         <Route path="/catalogoguitarras" element={<CatalogoGuitarras />} /> 
         <Route path="/catalogoaccesorios" element={<CatalogoAccesorios />} /> 
