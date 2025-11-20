@@ -16,10 +16,10 @@ function Carrito() {
         setConfirmarEliminar(null);
     };
 
-    // Suma total de precios
-    const total = carrito.reduce((sum, producto) => {
-        const precioNum = Number(producto.precio.toString().replace(/[^0-9.-]+/g, ""));
-        return sum + precioNum;
+    // Calcular total
+    const total = carrito.reduce((acc, item) => {
+        const price = Number(item.precio?.replace(/\D/g, "")) || 0;
+        return acc + price;
     }, 0);
 
     return (
@@ -40,53 +40,80 @@ function Carrito() {
             </div>
 
             {carrito.length === 0 ? (
-                <div className="carrito-vacio-wrapper">
-                    <div className="carrito-vacio-card">
+                <div
+                    style={{
+                        width: "100%",
+                        minHeight: "60vh",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}
+                >
+                    <div
+                        style={{
+                            backgroundColor: "#1e1e1e",
+                            padding: "2rem 2.5rem",
+                            borderRadius: "16px",
+                            textAlign: "center",
+                            color: "#fff",
+                            maxWidth: "380px",
+                            width: "90%",
+                        }}
+                    >
                         <h2>🛒 Tu carrito está vacío</h2>
                         <p>Agrega productos para verlos aquí.</p>
                     </div>
                 </div>
             ) : (
-                <div className="carrito-container-grande">
+                <div className="carrito-container">
 
-                    <h3 className="titulo-lista">Productos agregados</h3>
+                    {/* CARD GRANDE CONTENEDORA */}
+                    <div className="carrito-wrapper-card">
 
-                    <div className="carrito-lista">
-                        {carrito.map((producto) => (
-                            <div className="carrito-card" key={producto.id}>
-                                <div className="carrito-card-img">
-                                    <img src={`/${producto.imagen}`} alt={producto.nombre} />
+                        {/* LISTA DE PRODUCTOS */}
+                        <div className="carrito-lista">
+                            {carrito.map((producto) => (
+                                <div className="carrito-card" key={producto.id}>
+                                    <div className="carrito-card-img">
+                                        <img src={`/${producto.imagen}`} alt={producto.nombre} />
+                                    </div>
+
+                                    <div className="carrito-card-info">
+                                        <h2>{producto.nombre}</h2>
+                                        <p>{producto.descripcion}</p>
+                                        <h4 className="carrito-precio">{producto.precio}</h4>
+
+                                        <h3>Detalles del producto</h3>
+                                        <p>{producto.detalle}</p>
+
+                                        {modoEliminar && (
+                                            <button
+                                                className="boton-eliminar-carrito"
+                                                onClick={() => setConfirmarEliminar(producto)}
+                                            >
+                                                Eliminar
+                                            </button>
+                                        )}
+                                    </div>
                                 </div>
+                            ))}
+                        </div>
 
-                                <div className="carrito-card-info">
-                                    <h2>{producto.nombre}</h2>
-                                    <p>{producto.descripcion}</p>
-                                    <h4 className="carrito-precio">{producto.precio}</h4>
-
-                                    <h3>Detalles del producto</h3>
-                                    <p>{producto.detalle}</p>
-
-                                    {modoEliminar && (
-                                        <button
-                                            className="boton-eliminar-carrito"
-                                            onClick={() => setConfirmarEliminar(producto)}
-                                        >
-                                            Eliminar
-                                        </button>
-                                    )}
-                                </div>
+                        {/* TOTAL */}
+                        <div className="carrito-total-card">
+                            <div className="total-info">
+                                <h3>Total a pagar</h3>
+                                <h1>${total.toLocaleString()}</h1>
                             </div>
-                        ))}
-                    </div>
 
-                    {/* TOTAL */}
-                    <div className="carrito-total">
-                        <h2>Total: ${total.toLocaleString()}</h2>
+                            <button className="boton-pagar">Pagar ahora</button>
+                        </div>
+
                     </div>
                 </div>
             )}
 
-            {/* Modal confirmación */}
+            {/* MODAL CONFIRMACIÓN */}
             {confirmarEliminar && (
                 <div className="modal-confirmacion">
                     <div className="modal-card">
@@ -103,7 +130,9 @@ function Carrito() {
 
                             <button
                                 className="boton-confirmar"
-                                onClick={() => eliminarDelCarrito(confirmarEliminar.id)}
+                                onClick={() =>
+                                    eliminarDelCarrito(confirmarEliminar.id)
+                                }
                             >
                                 Eliminar
                             </button>

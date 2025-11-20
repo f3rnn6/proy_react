@@ -1,57 +1,69 @@
-import React, { useState } from 'react';
-import { Form, Button, Card, Container } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 const LoginForm = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (username === 'admin' && password === '1234') {
-      alert('Inicio de sesión exitoso!');
-
-      navigate('/administrador');
+    if (username === "admin" && password === "1234") {
+      navigate("/administrador");
     } else {
-      alert('Usuario o contraseña incorrectos. Usa: admin/1234');
+      alert("Usuario o contraseña incorrectos. Usa: admin / 1234");
     }
   };
 
   return (
-    <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
-      <div className="w-100" style={{ maxWidth: '400px' }}>
-        <Card>
-          <Card.Body>
-            <h2 className="text-center mb-4">Iniciar Sesión</h2>
-            <Form onSubmit={handleSubmit}>
-              <Form.Group id="username" className="mb-3">
-                <Form.Label>Usuario</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  required
-                />
-              </Form.Group>
-              <Form.Group id="password" className="mb-3">
-                <Form.Label>Contraseña</Form.Label>
-                <Form.Control
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </Form.Group>
-              <Button disabled={!username || !password} className="w-100" type="submit">
-                Entrar
-              </Button>
-            </Form>
-          </Card.Body>
-        </Card>
+    <div className="login-wrapper">
+      <div className="login-card">
+        <h2>Iniciar Sesión</h2>
+
+        <form onSubmit={handleSubmit} className="login-form">
+          <div className="input-group">
+            <label>Usuario</label>
+            <input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="input-group">
+            <label>Contraseña</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="login-button"
+            disabled={!username || !password}
+          >
+            Entrar
+          </button>
+
+
+
+          {/* 🔽 Botón de texto para registrarse */}
+          <p className="login-register-text">
+            ¿No tienes cuenta?{" "}
+            <span className="register-link" onClick={() => navigate("/registro")}>
+              Crear cuenta
+            </span>
+          </p>
+
+        </form>
       </div>
-    </Container>
+    </div>
   );
 };
 
