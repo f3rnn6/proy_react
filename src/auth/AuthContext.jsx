@@ -3,48 +3,79 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 const AuthContext = createContext(null);
 export const useAuth = () => useContext(AuthContext);
 
-const USERS_KEY = "tg_users";
-const SESSION_KEY = "tg_session";
+// 🔐 Clave de la sesión en localStorage
+const SESSION_KEY = "melody_session";
+
+// 🔗 URL base del backend
+const API_URL = "http://localhost:8080/api/v1";
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null); // { token, email, nombre, rol }
 
+  // Al cargar la app, recuperar sesión si existe
   useEffect(() => {
     const raw = localStorage.getItem(SESSION_KEY);
-    if (raw) setUser(JSON.parse(raw));
+    if (raw) {
+      try {
+        setUser(JSON.parse(raw));
+      } catch (_) {
+        localStorage.removeItem(SESSION_KEY);
+      }
+    }
   }, []);
 
-  const getUsers = () => {
-    const raw = localStorage.getItem(USERS_KEY);
-    return raw ? JSON.parse(raw) : [];
+  // 🔹 Registro (opcional, pero útil para tu /registro)
+  const register = async ({ nombre, correo, password }) => {
+    // El backend espera "email", no "correo"
+    const body = {
+      nombre,
+      email: correo,
+      password,
+    };
+
+    const res = await fetch(`${API_URL}/usuarios/registrar`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(text || "Error al registrar usuario");
+    }
+
+    return await res.json();
   };
 
-  const saveUsers = (list) => {
-    localStorage.setItem(USERS_KEY, JSON.stringify(list));
-  };
+  // 🔹 Login: llama al backend, guarda token + rol
+  const login = async (email, password) => {
+    const body = { email, password };
 
-  const register = ({ nombre, apellido, username, password, role = "user" }) => {
-    const users = getUsers();
-    const exists = users.some(
-      (u) => u.username?.toLowerCase() === username?.toLowerCase()
-    );
-    if (exists) throw new Error("El nombre de usuario ya está registrado");
-    const newUser = { nombre, apellido, username, password, role };
-    saveUsers([...users, newUser]);
-    return newUser;
-  };
+    const res = await fetch(`${API_URL}/auth/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
 
-  const login = async (username, password) => {
-    const users = getUsers();
-    const found = users.find(
-      (u) =>
-        u.username?.toLowerCase() === username?.toLowerCase() &&
-        u.password === password
-    );
-    if (!found) throw new Error("Usuario o contraseña incorrectos");
-    localStorage.setItem(SESSION_KEY, JSON.stringify(found));
-    setUser(found);
-    return found;
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(text || "Usuario o contraseña incorrectos");
+    }
+
+    const data = await res.json();
+    // data = { token, email, nombre, rol }
+
+    const session = {
+      token: data.token,
+      email: data.email,
+      nombre: data.nombre,
+      rol: data.rol, // "ADMIN" o "CLIENTE"
+    };
+
+    localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+    setUser(session);
+
+    return session;
   };
 
   const logout = () => {
@@ -52,6 +83,11 @@ export function AuthProvider({ children }) {
     setUser(null);
   };
 
-  const value = { user, login, logout, register };
+  const isAuthenticated = !!user;
+  const isAdmin = user?.rol === "ADMIN";
+  const isCliente = user?.rol === "CLIENTE";
+
+  const value = { user, isAuthenticated, isAdmin, isCliente, login, logout, register };
+
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

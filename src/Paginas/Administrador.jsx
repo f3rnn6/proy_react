@@ -1,12 +1,22 @@
 import { useState, useEffect } from "react";
 import { Container, Row, Col, Button, Form, Card, Modal } from "react-bootstrap";
 import AppNavBar from "../componentes/navbar";
-import { productos as productosOriginales } from "../data/productos";
 import { validarProducto } from "../utils/validaciones";
+
+// 🔥 API real del backend
+import {
+  getProductos,
+  crearProducto,
+  actualizarProducto,
+  eliminarProducto,
+} from "../api/api";
+
 import "../App.css";
 
 function Administrador() {
   const [productos, setProductos] = useState([]);
+
+  // Estados para CRUD
   const [nuevoProducto, setNuevoProducto] = useState({
     nombre: "",
     categoria: "",
@@ -15,186 +25,231 @@ function Administrador() {
     imagen: "",
     detalle: "",
   });
-  const [errores, setErrores] = useState({});
-  const [touched, setTouched] = useState({});
+
+  const [productoEditado, setProductoEditado] = useState(null);
+
+  const [errores, setErrores] = useState([]);
+
+  const [modalAgregar, setModalAgregar] = useState(false);
+  const [modalEditar, setModalEditar] = useState(false);
   const [modalEliminar, setModalEliminar] = useState({ show: false, id: null });
 
+  // ---------------------------------------------------
+  // 🔥 Cargar productos reales desde el backend
+  // ---------------------------------------------------
   useEffect(() => {
-    const productosGuardados = JSON.parse(localStorage.getItem("productos"));
-    const productosCompletos = productosGuardados?.length
-      ? productosGuardados
-      : productosOriginales;
-    setProductos(productosCompletos);
+    const cargar = async () => {
+      try {
+        const lista = await getProductos();
+        setProductos(lista);
+      } catch (err) {
+        console.error("Error al cargar productos del servidor");
+      }
+    };
 
-    if (!productosGuardados?.length) {
-      localStorage.setItem("productos", JSON.stringify(productosOriginales));
-    }
+    cargar();
   }, []);
 
-  const guardarProductos = (productosActualizados) => {
-    setProductos(productosActualizados);
-    localStorage.setItem("productos", JSON.stringify(productosActualizados));
+  // ---------------------------------------------------
+  // 🟢 CREAR PRODUCTO
+  // ---------------------------------------------------
+  const handleCrearProducto = async () => {
+    const erroresVal = validarProducto(nuevoProducto);
+    if (erroresVal.length > 0) {
+      setErrores(erroresVal);
+      return;
+    }
+
+    try {
+      const creado = await crearProducto(nuevoProducto);
+      setProductos([...productos, creado]);
+      setModalAgregar(false);
+
+      setNuevoProducto({
+        nombre: "",
+        categoria: "",
+        descripcion: "",
+        precio: "",
+        imagen: "",
+        detalle: "",
+      });
+
+      setErrores([]);
+
+    } catch (err) {
+      alert("Error al crear producto");
+    }
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    const nuevoEstado = { ...nuevoProducto, [name]: value };
-    setNuevoProducto(nuevoEstado);
-    setErrores(validarProducto(nuevoEstado));
+  // ---------------------------------------------------
+  // 🟡 EDITAR PRODUCTO
+  // ---------------------------------------------------
+  const handleGuardarCambios = async () => {
+    if (!productoEditado) return;
+
+    try {
+      const actualizado = await actualizarProducto(productoEditado.id, productoEditado);
+
+      setProductos(
+        productos.map((p) => (p.id === actualizado.id ? actualizado : p))
+      );
+
+      setModalEditar(false);
+    } catch (err) {
+      alert("Error al actualizar producto");
+    }
   };
 
-  const handleBlur = (e) => {
-    const { name } = e.target;
-    setTouched({ ...touched, [name]: true });
-  };
+  // ---------------------------------------------------
+  // 🔴 ELIMINAR PRODUCTO
+  // ---------------------------------------------------
+  const handleEliminar = async () => {
+    try {
+      await eliminarProducto(modalEliminar.id);
 
-  const handleAgregar = () => {
-    const validacion = validarProducto(nuevoProducto);
-    setErrores(validacion);
-
-    if (Object.keys(validacion).length > 0) return;
-
-    const idNuevo = productos.length ? Math.max(...productos.map(p => p.id)) + 1 : 1;
-    const productoParaAgregar = { ...nuevoProducto, id: idNuevo };
-
-    guardarProductos([...productos, productoParaAgregar]);
-
-    setNuevoProducto({
-      nombre: "",
-      categoria: "",
-      descripcion: "",
-      precio: "",
-      imagen: "",
-      detalle: "",
-    });
-    setTouched({});
-  };
-
-  const confirmarEliminar = (id) => {
-    setModalEliminar({ show: true, id });
-  };
-
-  const handleEliminar = () => {
-    const productosActualizados = productos.filter(p => p.id !== modalEliminar.id);
-    guardarProductos(productosActualizados);
-    setModalEliminar({ show: false, id: null });
+      setProductos(productos.filter((p) => p.id !== modalEliminar.id));
+      setModalEliminar({ show: false, id: null });
+    } catch (err) {
+      alert("Error al eliminar producto");
+    }
   };
 
   return (
-    <Container fluid className="my-4">
-      <AppNavBar nombre="Admin" />
-      <h2 className="text-center text-warning my-3 bg-dark">Panel de Administración</h2>
+    <Container className="mt-4">
+      <h2 className="text-center mb-4">Panel de Administración</h2>
 
-      <Card className="mb-4 p-3 bg-dark text-white shadow-sm">
-        <h4 className="text-warning mb-3">Agregar Producto</h4>
-        <Row className="g-2">
-          <Col md={3}>
-            <Form.Control
-              placeholder="Nombre"
-              name="nombre"
-              value={nuevoProducto.nombre}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-            {touched.nombre && errores.nombre && <small className="text-danger">{errores.nombre}</small>}
-          </Col>
+      {/* BOTÓN AGREGAR */}
+      <div className="text-end mb-3">
+        <Button variant="success" onClick={() => setModalAgregar(true)}>
+          + Agregar Producto
+        </Button>
+      </div>
 
-          <Col md={2}>
-            <Form.Control
-              placeholder="Categoría"
-              name="categoria"
-              value={nuevoProducto.categoria}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-            {touched.categoria && errores.categoria && <small className="text-danger">{errores.categoria}</small>}
-          </Col>
+      {/* LISTA DE PRODUCTOS */}
+      <Row>
+        {productos.length > 0 ? (
+          productos.map((producto) => (
+            <Col xs={12} md={6} lg={4} key={producto.id} className="mb-4">
+              <Card>
+                <Card.Img variant="top" src={producto.imagen} />
+                <Card.Body>
+                  <Card.Title>{producto.nombre}</Card.Title>
+                  <Card.Text>{producto.descripcion}</Card.Text>
+                  <Card.Text className="fw-bold">${producto.precio}</Card.Text>
 
-          <Col md={3}>
-            <Form.Control
-              placeholder="Descripción"
-              name="descripcion"
-              value={nuevoProducto.descripcion}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-            {touched.descripcion && errores.descripcion && <small className="text-danger">{errores.descripcion}</small>}
-          </Col>
+                  <Button
+                    variant="primary"
+                    className="me-2"
+                    onClick={() => {
+                      setProductoEditado(producto);
+                      setModalEditar(true);
+                    }}
+                  >
+                    Editar
+                  </Button>
 
-          <Col md={1}>
-            <Form.Control
-              placeholder="Precio"
-              name="precio"
-              value={nuevoProducto.precio}
-              onChange={handleChange}
-              type="number"
-            />
-          </Col>
-
-          <Col md={2}>
-            <Form.Control
-              placeholder="Imagen (ruta)"
-              name="imagen"
-              value={nuevoProducto.imagen}
-              onChange={handleChange}
-            />
-          </Col>
-
-          <Col md={1}>
-            <Button variant="warning" className="w-100" onClick={handleAgregar}>
-              Agregar
-            </Button>
-          </Col>
-        </Row>
-
-        <Form.Group className="mt-2">
-          <Form.Control
-            placeholder="Detalle del producto"
-            name="detalle"
-            value={nuevoProducto.detalle}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {touched.detalle && errores.detalle && <small className="text-danger">{errores.detalle}</small>}
-        </Form.Group>
-      </Card>
-
-      {/* Listado de Productos */}
-      <Row className="g-3" style={{ maxHeight: "70vh", overflowY: "auto" }}>
-        {productos.map((p) => (
-          <Col md={4} key={p.id}>
-            <Card
-              className="h-100 shadow-sm border-warning"
-              data-testid="producto-card" // <-- agregado para los tests
-            >
-              {p.imagen && <Card.Img variant="top" src={`/${p.imagen}`} className="producto-img" />}
-              <Card.Body className="d-flex flex-column justify-content-between">
-                <div>
-                  <Card.Title data-testid="producto-nombre" className="text-warning">
-                    {p.nombre}
-                  </Card.Title>
-
-                  <Card.Text>{p.descripcion}</Card.Text>
-                  <Card.Text className="fw-bold">{p.precio}</Card.Text>
-                </div>
-                <Button data-testid="btn-eliminar-producto"
-                  variant="danger" onClick={() => confirmarEliminar(p.id)}>Eliminar</Button>
-              </Card.Body>
-            </Card>
-          </Col>
-        ))}
+                  <Button
+                    variant="danger"
+                    onClick={() => setModalEliminar({ show: true, id: producto.id })}
+                  >
+                    Eliminar
+                  </Button>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))
+        ) : (
+          <p className="text-center">No hay productos disponibles</p>
+        )}
       </Row>
 
+      {/* MODAL AGREGAR */}
+      <Modal show={modalAgregar} onHide={() => setModalAgregar(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Agregar Producto</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {errores.length > 0 &&
+            errores.map((err, i) => (
+              <p key={i} className="text-danger">
+                {err}
+              </p>
+            ))}
 
-      {/* Modal de confirmación */}
-      <Modal show={modalEliminar.show} onHide={() => setModalEliminar({ show: false, id: null })} centered>
+          <Form>
+            {Object.keys(nuevoProducto).map((campo) => (
+              <Form.Group className="mb-3" key={campo}>
+                <Form.Label>{campo.toUpperCase()}</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={nuevoProducto[campo]}
+                  onChange={(e) =>
+                    setNuevoProducto({ ...nuevoProducto, [campo]: e.target.value })
+                  }
+                />
+              </Form.Group>
+            ))}
+          </Form>
+
+          <Button variant="success" onClick={handleCrearProducto}>
+            Guardar
+          </Button>
+        </Modal.Body>
+      </Modal>
+
+      {/* MODAL EDITAR */}
+      <Modal show={modalEditar} onHide={() => setModalEditar(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Editar Producto</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {productoEditado && (
+            <Form>
+              {Object.keys(productoEditado).map((campo) =>
+                campo === "id" ? null : (
+                  <Form.Group className="mb-3" key={campo}>
+                    <Form.Label>{campo.toUpperCase()}</Form.Label>
+                    <Form.Control
+                      type="text"
+                      value={productoEditado[campo]}
+                      onChange={(e) =>
+                        setProductoEditado({
+                          ...productoEditado,
+                          [campo]: e.target.value,
+                        })
+                      }
+                    />
+                  </Form.Group>
+                )
+              )}
+            </Form>
+          )}
+
+          <Button variant="primary" onClick={handleGuardarCambios}>
+            Guardar Cambios
+          </Button>
+        </Modal.Body>
+      </Modal>
+
+      {/* MODAL ELIMINAR */}
+      <Modal
+        show={modalEliminar.show}
+        onHide={() => setModalEliminar({ show: false, id: null })}
+      >
         <Modal.Header closeButton>
           <Modal.Title>Confirmar Eliminación</Modal.Title>
         </Modal.Header>
         <Modal.Body>¿Seguro que deseas eliminar este producto?</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setModalEliminar({ show: false, id: null })}>Cancelar</Button>
-          <Button  variant="danger" onClick={handleEliminar}>Eliminar</Button>
+          <Button
+            variant="secondary"
+            onClick={() => setModalEliminar({ show: false, id: null })}
+          >
+            Cancelar
+          </Button>
+          <Button variant="danger" onClick={handleEliminar}>
+            Eliminar
+          </Button>
         </Modal.Footer>
       </Modal>
     </Container>
