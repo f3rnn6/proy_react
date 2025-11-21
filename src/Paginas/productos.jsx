@@ -1,58 +1,61 @@
-import { useEffect, useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import Card from "../componentes/Card";
-import SearchBar from "../componentes/SearchBar";
-import "../App.css";
-import { getProductos } from "../api/api"; // ⬅️ Backend real
+import { useState, useEffect } from "react";
+import { Col, Container, Row } from "react-bootstrap";
+import AppNavBar from "../componentes/navbar";
+import AppSearch from "../componentes/SearchBar";
+import AppCard from "../componentes/Card";
+import Footer from "../componentes/footer";
+import { productos as productosOriginales } from "../data/productos";
 
 function Productos() {
   const [productos, setProductos] = useState([]);
-  const [busqueda, setBusqueda] = useState("");
-  const [cargando, setCargando] = useState(false);
-  const [error, setError] = useState("");
+  const [productosFiltrados, setProductosFiltrados] = useState([]);
 
-  // 🔥 Cargar productos reales desde el backend
   useEffect(() => {
-    const cargar = async () => {
-      setCargando(true);
-      try {
-        const data = await getProductos();
-        setProductos(data);
-      } catch (err) {
-        setError("Error al cargar productos del servidor");
-      } finally {
-        setCargando(false);
-      }
-    };
+    // Leer productos desde localStorage
+    const productosGuardados = JSON.parse(localStorage.getItem("productos"));
+    const productosCompletos = productosGuardados?.length
+      ? productosGuardados
+      : productosOriginales;
 
-    cargar();
+    setProductos(productosCompletos);
+    setProductosFiltrados(productosCompletos);
+
+    // Inicializar localStorage si estaba vacío
+    if (!productosGuardados?.length) {
+      localStorage.setItem("productos", JSON.stringify(productosOriginales));
+    }
   }, []);
 
-  // 🔍 Filtro de búsqueda
-  const productosFiltrados = productos.filter((producto) =>
-    producto.nombre.toLowerCase().includes(busqueda.toLowerCase())
-  );
-
-  if (cargando) return <p className="text-center mt-5">Cargando productos...</p>;
-  if (error) return <p className="text-center mt-5 text-danger">{error}</p>;
+  const handleSearch = (texto) => {
+    if (!texto.trim()) {
+      setProductosFiltrados(productos);
+    } else {
+      const resultado = productos.filter((item) =>
+        item.nombre.toLowerCase().includes(texto.toLowerCase())
+      );
+      setProductosFiltrados(resultado);
+    }
+  };
 
   return (
     <Container>
-      <h1 className="mb-4 text-center">Nuestros Productos</h1>
-
-      <SearchBar busqueda={busqueda} setBusqueda={setBusqueda} />
-
-      <Row className="mt-4">
-        {productosFiltrados.length > 0 ? (
-          productosFiltrados.map((producto) => (
-            <Col xs={12} md={4} lg={3} key={producto.id} className="mb-4">
-              <Card {...producto} />
-            </Col>
-          ))
-        ) : (
-          <p className="text-center">No hay productos disponibles</p>
-        )}
+      <Row>
+        <AppNavBar nombre="Joaquin" />
       </Row>
+
+      <Row>
+        <AppSearch onSearch={handleSearch} />
+      </Row>
+
+      <Row>
+        {productosFiltrados.map((item) => (
+          <Col key={item.id} md={4} className="mb-3">
+            <AppCard producto={item} />
+          </Col>
+        ))}
+      </Row>
+
+      <Footer />
     </Container>
   );
 }

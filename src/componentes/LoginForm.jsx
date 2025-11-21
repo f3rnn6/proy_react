@@ -1,84 +1,66 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../auth/AuthContext";
+
 
 const LoginForm = () => {
-  const [email, setEmail] = useState("");      // antes username
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const navigate = useNavigate();
-  const { login } = useAuth();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setError("");
 
-    try {
-      const session = await login(email, password);
-      // session.rol viene del backend: "ADMIN" o "CLIENTE"
-
-      if (session.rol === "ADMIN") {
-        navigate("/administrador");
-      } else {
-        // CLIENTE u otro → lo mandamos al catálogo
-        navigate("/productos");
-      }
-    } catch (err) {
-      setError(err.message || "Error al iniciar sesión");
+    if (username === "admin" && password === "1234") {
+      navigate("/administrador");
+    } else {
+      alert("Usuario o contraseña incorrectos. Usa: admin / 1234");
     }
   };
 
   return (
-    <div className="login-page">
-      <div className="login-container">
-        <h2 className="login-title">Iniciar sesión</h2>
+    <div className="login-wrapper">
+      <div className="login-card">
+        <h2>Iniciar Sesión</h2>
 
-        <form onSubmit={handleSubmit}>
-          <div className="login-group">
-            <label htmlFor="email" className="login-label">
-              Correo electrónico
-            </label>
+        <form onSubmit={handleSubmit} className="login-form">
+          <div className="input-group">
+            <label>Usuario</label>
             <input
-              type="email"
-              id="email"
-              className="login-input"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="ejemplo@correo.com"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               required
             />
           </div>
 
-          <div className="login-group">
-            <label htmlFor="password" className="login-label">
-              Contraseña
-            </label>
+          <div className="input-group">
+            <label>Contraseña</label>
             <input
               type="password"
-              id="password"
-              className="login-input"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
               required
             />
           </div>
 
-          {error && <p className="login-error">{error}</p>}
-
-          <button type="submit" className="login-button">
-            Ingresar
+          <button
+            type="submit"
+            className="login-button"
+            disabled={!username || !password}
+          >
+            Entrar
           </button>
 
-          <div className="login-register-text">
+
+
+          {/* 🔽 Botón de texto para registrarse */}
+          <p className="login-register-text">
             ¿No tienes cuenta?{" "}
-            <span
-              className="register-link"
-              onClick={() => navigate("/registro")}
-            >
-              Regístrate
+            <span className="register-link" onClick={() => navigate("/registro")}>
+              Crear cuenta
             </span>
-          </div>
+          </p>
+
         </form>
       </div>
     </div>
