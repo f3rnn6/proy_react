@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
 import "../App.css";
+import api from "../api/api";
 
 export default function Registro() {
   const navigate = useNavigate();
