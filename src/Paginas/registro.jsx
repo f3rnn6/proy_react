@@ -30,7 +30,7 @@ export default function Registro() {
     }
 
     try {
-      await register({
+      await api.post("/usuarios/registrar", {
         nombre: form.nombre,
         email: form.email,
         password: form.password,

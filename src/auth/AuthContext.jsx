@@ -25,51 +25,45 @@ export function AuthProvider({ children }) {
   }, []);
 
   const register = async ({ nombre, email, password }) => {
-    const res = await fetch(`${API_URL}/usuarios/registrar`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ nombre, email, password }),
+  try {
+    const res = await api.post("/usuarios/registrar", {
+      nombre,
+      email,
+      password,
     });
 
-    if (!res.ok) {
-      const mensaje = await res.text();
-      throw new Error(mensaje || "Error al registrar usuario");
-    }
+    return res.data;
+  } catch (err) {
+    throw new Error("Error al registrar usuario");
+  }
+};
 
-    return await res.json();
-  };
 
-  // 🔹 Login: llama al backend, guarda token + rol
   const login = async (email, password) => {
-    const body = { email, password };
-
-    const res = await fetch(`${API_URL}/auth/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
+  try {
+    const res = await api.post("/auth/login", {
+      email,
+      password,
     });
 
-    if (!res.ok) {
-      const text = await res.text();
-      throw new Error(text || "Usuario o contraseña incorrectos");
-    }
-
-    const data = await res.json();
-    // data = { token, email, nombre, rol }
+    const data = res.data;
 
     const session = {
       token: data.token,
       email: data.email,
       nombre: data.nombre,
-      rol: data.rol, // "ADMIN" o "CLIENTE"
+      rol: data.rol,
     };
 
     localStorage.setItem(SESSION_KEY, JSON.stringify(session));
     setUser(session);
 
     return session;
+  } catch (err) {
+    throw new Error("Usuario o contraseña incorrectos");
+  }
   };
-
+  
   const logout = () => {
     localStorage.removeItem(SESSION_KEY);
     setUser(null);
