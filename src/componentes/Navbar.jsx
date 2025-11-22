@@ -8,9 +8,12 @@ import {
   NavDropdown,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { useAuth } from "../auth/AuthContext"; // 👈 IMPORTANTE
 
 export default function AppNavBar({ nombre }) {
   const [show, setShow] = useState(false);
+
+  const { isAuthenticated, isAdmin, isCliente, logout } = useAuth(); // 👈 Roles y logout
 
   const carritoCount =
     JSON.parse(localStorage.getItem("carrito"))?.length || 0;
@@ -18,7 +21,6 @@ export default function AppNavBar({ nombre }) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  // 🔥 Cerrar menú hamburguesa al seleccionar una opción
   const handleCollapseClose = () => {
     const menu = document.getElementById("menu-principal");
     if (menu && menu.classList.contains("show")) {
@@ -31,84 +33,107 @@ export default function AppNavBar({ nombre }) {
       <Navbar expand="lg" className="barra-navegacion" sticky="top">
         <Container fluid="lg">
 
-          {/* BRAND — Visible siempre en desktop */}
           <Navbar.Brand as={Link} to="/" className="d-none d-lg-block">
             Melody Store
           </Navbar.Brand>
 
-          {/* BOTÓN HAMBURGUESA */}
           <Navbar.Toggle aria-controls="menu-principal" className="ms-auto" />
 
           <Navbar.Collapse id="menu-principal">
-
-            {/* BRAND CENTRADO — SOLO EN MÓVIL */}
             <Navbar.Brand as={Link} to="/" className="brand-mobile d-lg-none">
               Melody Store
             </Navbar.Brand>
 
-            {/* MENÚ PRINCIPAL */}
             <Nav className="navbar-menu mx-auto">
 
-              {/* TEXTO BIENVENIDA */}
               <Navbar.Text className="navbar-text">
                 Hola {nombre} sigue disfrutando de la música!
               </Navbar.Text>
 
-              {/* PRODUCTOS */}
-              <Nav.Link
-                as={Link}
-                to="/productos"
-                onClick={handleCollapseClose}
-              >
+              {/* PRODUCTOS - SIEMPRE VISIBLE */}
+              <Nav.Link as={Link} to="/productos" onClick={handleCollapseClose}>
                 Productos
               </Nav.Link>
 
-              {/* CARRITO */}
-              <Nav.Link
-                as={Link}
-                to="/carrito"
-                className="position-relative"
-                onClick={handleCollapseClose}
-              >
-                Carrito
-                {carritoCount > 0 && (
-                  <span className="contador-carrito">{carritoCount}</span>
-                )}
-              </Nav.Link>
+              {/* CARRITO (solo CLIENTE logueado) */}
+              {isAuthenticated && !isAdmin && (
+                <Nav.Link
+                  as={Link}
+                  to="/carrito"
+                  className="position-relative"
+                  onClick={handleCollapseClose}
+                >
+                  Carrito
+                  {carritoCount > 0 && (
+                    <span className="contador-carrito">{carritoCount}</span>
+                  )}
+                </Nav.Link>
+              )}
 
-              {/* FAVORITOS */}
-              <Nav.Link
-                as={Link}
-                to="/favoritos"
-                onClick={handleCollapseClose}
-              >
-                Favoritos
-              </Nav.Link>
+              {/* FAVORITOS (solo CLIENTE logueado) */}
+              {isAuthenticated && !isAdmin && (
+                <Nav.Link
+                  as={Link}
+                  to="/favoritos"
+                  onClick={handleCollapseClose}
+                >
+                  Favoritos
+                </Nav.Link>
+              )}
 
-              {/* PERFIL (NO CERRAR EL MENÚ) */}
+              {/* PANEL ADMIN (solo ADMIN) */}
+              {isAdmin && (
+                <Nav.Link
+                  as={Link}
+                  to="/administrador"
+                  onClick={handleCollapseClose}
+                >
+                  Panel Admin
+                </Nav.Link>
+              )}
+
+              {/* PERFIL / LOGIN / LOGOUT */}
               <NavDropdown
                 title={<span className="perfil-texto">Perfil</span>}
                 id="dropdown-perfil"
                 menuVariant="dark"
                 className="perfil-dropdown"
               >
-                <NavDropdown.Item as={Link} to="/login" onClick={handleCollapseClose}>
-                  Iniciar sesión
-                  
-                </NavDropdown.Item>
+                {/* NO LOGUEADO → LOGIN + REGISTRO */}
+                {!isAuthenticated && (
+                  <>
+                    <NavDropdown.Item
+                      as={Link}
+                      to="/login"
+                      onClick={handleCollapseClose}
+                    >
+                      Iniciar sesión
+                    </NavDropdown.Item>
 
-                <NavDropdown.Item as={Link} to="/administrador" onClick={handleCollapseClose}>
-                  Administrador
-                </NavDropdown.Item>
+                    <NavDropdown.Item
+                      as={Link}
+                      to="/registro"
+                      onClick={handleCollapseClose}
+                    >
+                      Registrarse
+                    </NavDropdown.Item>
+                  </>
+                )}
 
-                <NavDropdown.Divider />
-
-                <NavDropdown.Item as={Link} to="/productos" onClick={handleCollapseClose}>
-                  Cerrar sesión
-                </NavDropdown.Item>
+                {/* LOGUEADO → CERRAR SESIÓN */}
+                {isAuthenticated && (
+                  <NavDropdown.Item
+                    onClick={() => {
+                      logout();
+                      handleCollapseClose();
+                    }}
+                  >
+                    Cerrar sesión
+                  </NavDropdown.Item>
+                )}
               </NavDropdown>
 
-              {/* BOTÓN CATÁLOGO (CIERRA MENÚ) */}
+              {/* BOTÓN CATÁLOGO */}
               <Button
                 variant="outline-light"
                 onClick={() => {
@@ -136,7 +161,6 @@ export default function AppNavBar({ nombre }) {
 
         <Offcanvas.Body>
           <Nav className="flex-column">
-
             <Nav.Link as={Link} to="/catalogobaterias" onClick={handleClose}>
               Baterías
             </Nav.Link>
@@ -152,7 +176,6 @@ export default function AppNavBar({ nombre }) {
             <Nav.Link as={Link} to="/catalogoaccesorios" onClick={handleClose}>
               Accesorios
             </Nav.Link>
-
           </Nav>
 
           <div className="mt-auto pb-3">

@@ -18,21 +18,21 @@ import { useAuth } from "./auth/AuthContext";
 function App() {
   const { isAuthenticated, isAdmin } = useAuth();
 
+  // Ruta protegida SOLO para usuarios logueados
+  const PrivateRoute = ({ children }) => {
+    if (!isAuthenticated) {
+      return <Navigate to="/login" replace />;
+    }
+    return children;
+  };
+
   // Ruta protegida SOLO para ADMIN
   const AdminRoute = ({ children }) => {
     if (!isAuthenticated) {
       return <Navigate to="/login" replace />;
     }
     if (!isAdmin) {
-      return <Navigate to="/productos" replace />;
-    }
-    return children;
-  };
-
-  // Ruta protegida SOLO para usuarios logueados
-  const PrivateRoute = ({ children }) => {
-    if (!isAuthenticated) {
-      return <Navigate to="/login" replace />;
+      return <Navigate to="/" replace />;
     }
     return children;
   };
@@ -60,7 +60,7 @@ function App() {
           }
         />
 
-        {/* ADMIN ONLY */}
+        {/* Solo admin */}
         <Route
           path="/administrador"
           element={
