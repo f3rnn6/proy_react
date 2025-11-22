@@ -1,147 +1,78 @@
-import React, { useState } from "react";
-import Navbar from "../componentes/navbar";
+import { useEffect, useState } from "react";
+import { getCarrito, vaciarCarrito } from "../api/api";
+import { Container, Row, Col, Button } from "react-bootstrap";
+import { useAuth } from "../auth/AuthContext";
+import { Navigate } from "react-router-dom";
 
 function Carrito() {
-    const [carrito, setCarrito] = useState(
-        JSON.parse(localStorage.getItem("carrito")) || []
-    );
+  const { isAuthenticated } = useAuth();
+  const [carrito, setCarrito] = useState(null);
+  const [error, setError] = useState("");
+  const [cargando, setCargando] = useState(true);
 
-    const [modoEliminar, setModoEliminar] = useState(false);
-    const [confirmarEliminar, setConfirmarEliminar] = useState(null);
+  // 🔐 Ruta protegida: si no está logueado → fuera
+  if (!isAuthenticated) return <Navigate to="/login" replace />;
 
-    const eliminarDelCarrito = (id) => {
-        const nuevoCarrito = carrito.filter((item) => item.id !== id);
-        setCarrito(nuevoCarrito);
-        localStorage.setItem("carrito", JSON.stringify(nuevoCarrito));
-        setConfirmarEliminar(null);
+  // 📦 Cargar carrito real
+  useEffect(() => {
+    const cargar = async () => {
+      try {
+        const data = await getCarrito();
+        setCarrito(data);
+      } catch (err) {
+        setError("Error al cargar tu carrito.");
+      } finally {
+        setCargando(false);
+      }
     };
 
-    // Calcular total
-    const total = carrito.reduce((acc, item) => {
-        const price = Number(item.precio?.replace(/\D/g, "")) || 0;
-        return acc + price;
-    }, 0);
+    cargar();
+  }, []);
 
-    return (
+  const handleVaciar = async () => {
+    try {
+      const newCarrito = await vaciarCarrito();
+      setCarrito(newCarrito);
+    } catch {
+      alert("Error al vaciar el carrito");
+    }
+  };
+
+  if (cargando) return <p className="text-center mt-5">Cargando carrito...</p>;
+  if (error) return <p className="text-center text-danger">{error}</p>;
+  if (!carrito) return <p className="text-center mt-5">Carrito vacío.</p>;
+
+  return (
+    <Container className="mt-5">
+      <h2>Tu Carrito</h2>
+
+      {carrito.items?.length === 0 ? (
+        <p className="mt-4">Tu carrito está vacío.</p>
+      ) : (
         <>
-            <Navbar nombre="Joaquin" />
-
-            <div className="favoritos-header">
-                <h2>Mi Carrito 🛒</h2>
-
-                {carrito.length > 0 && (
-                    <button
-                        className="boton-eliminar-modo"
-                        onClick={() => setModoEliminar(!modoEliminar)}
-                    >
-                        {modoEliminar ? "Cancelar" : "Eliminar productos"}
-                    </button>
-                )}
-            </div>
-
-            {carrito.length === 0 ? (
-                <div
-                    style={{
-                        width: "100%",
-                        minHeight: "60vh",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                    }}
-                >
-                    <div
-                        style={{
-                            backgroundColor: "#1e1e1e",
-                            padding: "2rem 2.5rem",
-                            borderRadius: "16px",
-                            textAlign: "center",
-                            color: "#fff",
-                            maxWidth: "380px",
-                            width: "90%",
-                        }}
-                    >
-                        <h2>🛒 Tu carrito está vacío</h2>
-                        <p>Agrega productos para verlos aquí.</p>
-                    </div>
+          <Row className="mt-4">
+            {carrito.items?.map((item) => (
+              <Col xs={12} className="mb-3" key={item.id}>
+                <div className="border rounded p-3 d-flex justify-content-between">
+                  <div>
+                    <h5>{item.producto.nombre}</h5>
+                    <p>Cantidad: {item.cantidad}</p>
+                    <p>Subtotal: ${item.subtotal}</p>
+                  </div>
                 </div>
-            ) : (
-                <div className="carrito-container">
+              </Col>
+            ))}
+          </Row>
 
-                    {/* CARD GRANDE CONTENEDORA */}
-                    <div className="carrito-wrapper-card">
+          <h4 className="mt-4">Total: ${carrito.total}</h4>
 
-                        {/* LISTA DE PRODUCTOS */}
-                        <div className="carrito-lista">
-                            {carrito.map((producto) => (
-                                <div className="carrito-card" key={producto.id}>
-                                    <div className="carrito-card-img">
-                                        <img src={`/${producto.imagen}`} alt={producto.nombre} />
-                                    </div>
-
-                                    <div className="carrito-card-info">
-                                        <h2>{producto.nombre}</h2>
-                                        <p>{producto.descripcion}</p>
-                                        <h4 className="carrito-precio">{producto.precio}</h4>
-
-                                        <h3>Detalles del producto</h3>
-                                        <p>{producto.detalle}</p>
-
-                                        {modoEliminar && (
-                                            <button
-                                                className="boton-eliminar-carrito"
-                                                onClick={() => setConfirmarEliminar(producto)}
-                                            >
-                                                Eliminar
-                                            </button>
-                                        )}
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-
-                        {/* TOTAL */}
-                        <div className="carrito-total-card">
-                            <div className="total-info">
-                                <h3>Total a pagar</h3>
-                                <h1>${total.toLocaleString()}</h1>
-                            </div>
-
-                            <button className="boton-pagar">Pagar ahora</button>
-                        </div>
-
-                    </div>
-                </div>
-            )}
-
-            {/* MODAL CONFIRMACIÓN */}
-            {confirmarEliminar && (
-                <div className="modal-confirmacion">
-                    <div className="modal-card">
-                        <h3>¿Eliminar este producto del carrito?</h3>
-                        <p>{confirmarEliminar.nombre}</p>
-
-                        <div className="modal-buttons">
-                            <button
-                                className="boton-cancelar"
-                                onClick={() => setConfirmarEliminar(null)}
-                            >
-                                Cancelar
-                            </button>
-
-                            <button
-                                className="boton-confirmar"
-                                onClick={() =>
-                                    eliminarDelCarrito(confirmarEliminar.id)
-                                }
-                            >
-                                Eliminar
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
+          <Button variant="danger" className="mt-3" onClick={handleVaciar}>
+            Vaciar carrito
+          </Button>
         </>
-    );
+      )}
+    </Container>
+  );
 }
 
 export default Carrito;

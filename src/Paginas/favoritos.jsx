@@ -19,10 +19,8 @@ function Favoritos() {
 
   return (
     <>
-      <Navbar nombre="Joaquin" />
 
       <div className="favoritos-header">
-        <h2>Mis Favoritos</h2>
         {favoritos.length > 0 && (
           <button
             className="boton-eliminar-modo"

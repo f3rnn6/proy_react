@@ -73,7 +73,7 @@ const LoginForm = () => {
           <div className="login-register-text">
             ¿No tienes cuenta?{" "}
             <span
-              className="register-link"
+              className="login-link"
               onClick={() => navigate("/registro")}
             >
               Regístrate
