@@ -24,24 +24,16 @@ export function AuthProvider({ children }) {
     }
   }, []);
 
-  // 🔹 Registro (opcional, pero útil para tu /registro)
-  const register = async ({ nombre, correo, password }) => {
-    // El backend espera "email", no "correo"
-    const body = {
-      nombre,
-      email: correo,
-      password,
-    };
-
+  const register = async ({ nombre, email, password }) => {
     const res = await fetch(`${API_URL}/usuarios/registrar`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
+      body: JSON.stringify({ nombre, email, password }),
     });
 
     if (!res.ok) {
-      const text = await res.text();
-      throw new Error(text || "Error al registrar usuario");
+      const mensaje = await res.text();
+      throw new Error(mensaje || "Error al registrar usuario");
     }
 
     return await res.json();

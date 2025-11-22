@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../auth/AuthContext";
 import "../App.css";
 
 export default function Registro() {
   const navigate = useNavigate();
+  const { register } = useAuth();
 
   const [form, setForm] = useState({
     nombre: "",
@@ -18,17 +20,26 @@ export default function Registro() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
 
     if (form.password !== form.password2) {
       setError("Las contraseñas no coinciden");
       return;
     }
 
-    // Aquí conectarás al backend después
-    console.log("Usuario registrado:", form);
-    navigate("/login");
+    try {
+      await register({
+        nombre: form.nombre,
+        email: form.email,
+        password: form.password,
+      });
+
+      navigate("/login");
+    } catch (err) {
+      setError(err.message || "Error al registrarse");
+    }
   };
 
   return (
@@ -40,7 +51,6 @@ export default function Registro() {
         {error && <p className="registro-error">{error}</p>}
 
         <form onSubmit={handleSubmit} className="registro-form">
-
           <div className="registro-group">
             <label>Nombre</label>
             <input
