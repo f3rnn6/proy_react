@@ -29,10 +29,27 @@ function DetalleProductos() {
   if (error) return <p className="text-center text-danger mt-5">{error}</p>;
   if (!producto) return <p className="text-center mt-5">Producto no encontrado.</p>;
 
+  const agregarAlCarrito = (producto) => {
+  const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+  const itemExistente = carrito.find((item) => item.id === producto.id);
+
+  if (itemExistente) {
+    itemExistente.cantidad += 1;
+  } else {
+    carrito.push({
+      ...producto,
+      cantidad: 1,
+    });
+  }
+
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+};
+
   return (
     <Container className="detalle-container mt-5">
       <Row className="align-items-center">
-        
+
         {/* 🔥 MISMA FORMA QUE EN AppCard */}
         <Col md={6} className="mb-4 text-center">
           <img
@@ -49,7 +66,9 @@ function DetalleProductos() {
           <p className="detalle-descripcion">{producto.descripcion}</p>
           <p className="detalle-detalle">{producto.detalle}</p>
 
-          <Button className="boton-primario mt-3">Agregar al carrito</Button>
+          <button className="boton-carrito" onClick={() => agregarAlCarrito(producto)}>
+            🛒 Añadir al carrito
+          </button>
         </Col>
       </Row>
     </Container>

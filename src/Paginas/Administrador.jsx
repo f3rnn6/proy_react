@@ -116,7 +116,7 @@ function Administrador() {
 
   return (
     <Container className="mt-4">
-      <h2 className="text-center mb-4">Panel de Administración</h2>
+      <h2 className="text-center mb-4 titulo-pagina">Panel de Administración</h2>
 
       {/* BOTÓN AGREGAR */}
       <div className="text-end mb-3">

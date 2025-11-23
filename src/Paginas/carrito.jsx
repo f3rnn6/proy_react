@@ -1,77 +1,83 @@
-import { useEffect, useState } from "react";
-import { getCarrito, vaciarCarrito } from "../api/api";
-import { Container, Row, Col, Button } from "react-bootstrap";
-import { useAuth } from "../auth/AuthContext";
-import { Navigate } from "react-router-dom";
+import React, { useState } from "react";
 
 function Carrito() {
-  const { isAuthenticated } = useAuth();
-  const [carrito, setCarrito] = useState(null);
-  const [error, setError] = useState("");
-  const [cargando, setCargando] = useState(true);
+  const [carrito, setCarrito] = useState(
+    JSON.parse(localStorage.getItem("carrito")) || []
+  );
 
-  // 🔐 Ruta protegida: si no está logueado → fuera
-  if (!isAuthenticated) return <Navigate to="/login" replace />;
-
-  // 📦 Cargar carrito real
-  useEffect(() => {
-    const cargar = async () => {
-      try {
-        const data = await getCarrito();
-        setCarrito(data);
-      } catch (err) {
-        setError("Error al cargar tu carrito.");
-      } finally {
-        setCargando(false);
-      }
-    };
-
-    cargar();
-  }, []);
-
-  const handleVaciar = async () => {
-    try {
-      const newCarrito = await vaciarCarrito();
-      setCarrito(newCarrito);
-    } catch {
-      alert("Error al vaciar el carrito");
-    }
+  const guardarCarrito = (nuevoCarrito) => {
+    setCarrito(nuevoCarrito);
+    localStorage.setItem("carrito", JSON.stringify(nuevoCarrito));
   };
 
-  if (cargando) return <p className="text-center mt-5">Cargando carrito...</p>;
-  if (error) return <p className="text-center text-danger">{error}</p>;
-  if (!carrito) return <p className="text-center mt-5">Carrito vacío.</p>;
+  const aumentar = (id) => {
+    const nuevo = carrito.map((item) =>
+      item.id === id ? { ...item, cantidad: item.cantidad + 1 } : item
+    );
+    guardarCarrito(nuevo);
+  };
+
+  const disminuir = (id) => {
+    const nuevo = carrito
+      .map((item) =>
+        item.id === id
+          ? { ...item, cantidad: Math.max(1, item.cantidad - 1) }
+          : item
+      )
+      .filter((item) => item.cantidad > 0);
+
+    guardarCarrito(nuevo);
+  };
+
+  const eliminar = (id) => {
+    const nuevo = carrito.filter((item) => item.id !== id);
+    guardarCarrito(nuevo);
+  };
+
+  const calcularTotal = () =>
+    carrito.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
 
   return (
-    <Container className="mt-5">
-      <h2>Tu Carrito</h2>
+    <div className="carrito-container">
+      <h1 className="titulo-pagina">Carrito</h1>
 
-      {carrito.items?.length === 0 ? (
-        <p className="mt-4">Tu carrito está vacío.</p>
+      {carrito.length === 0 ? (
+        <h3 className="titulo-pagina">Carrito vacío</h3>
       ) : (
         <>
-          <Row className="mt-4">
-            {carrito.items?.map((item) => (
-              <Col xs={12} className="mb-3" key={item.id}>
-                <div className="border rounded p-3 d-flex justify-content-between">
-                  <div>
-                    <h5>{item.producto.nombre}</h5>
-                    <p>Cantidad: {item.cantidad}</p>
-                    <p>Subtotal: ${item.subtotal}</p>
+          <div className="carrito-lista">
+            {carrito.map((item) => (
+              <div className="carrito-item" key={item.id}>
+                <img
+                  className="carrito-item-img"
+                  src={item.imagen}
+                  alt={item.nombre}
+                />
+
+                <div className="carrito-item-content">
+                  <h2 className="carrito-item-nombre">{item.nombre}</h2>
+                  <p className="carrito-item-precio">Precio: ${item.precio}</p>
+                  <p className="carrito-item-cantidad">
+                    Cantidad: {item.cantidad}
+                  </p>
+
+                  <div className="carrito-item-botones">
+                    <button onClick={() => aumentar(item.id)}>+</button>
+                    <button onClick={() => disminuir(item.id)}>-</button>
+                    <button onClick={() => eliminar(item.id)}>Eliminar</button>
                   </div>
                 </div>
-              </Col>
+              </div>
             ))}
-          </Row>
+          </div>
 
-          <h4 className="mt-4">Total: ${carrito.total}</h4>
-
-          <Button variant="danger" className="mt-3" onClick={handleVaciar}>
-            Vaciar carrito
-          </Button>
+          {/* TOTAL FINAL */}
+          <div className="carrito-total">
+            Total: ${calcularTotal()}
+          </div>
         </>
       )}
-    </Container>
+    </div>
   );
 }
 

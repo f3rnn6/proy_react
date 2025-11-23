@@ -35,7 +35,7 @@ function Productos() {
 
   return (
     <Container>
-      <h1 className="mb-4 text-center">Nuestros Productos</h1>
+      <h1 className="mb-4 titulo-pagina">Nuestros Productos</h1>
 
       <SearchBar busqueda={busqueda} setBusqueda={setBusqueda} />
 

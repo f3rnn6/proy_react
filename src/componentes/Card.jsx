@@ -18,6 +18,7 @@ function AppCard({ producto }) {
     }
   };
 
+  
   return (
     <>
       <Card className="tarjeta-producto text-center" style={{ width: "18rem" }}>

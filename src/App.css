@@ -11,9 +11,13 @@ body {
   color: #fff;
 }
 
+
+
 main {
   padding-top: 90px;
 }
+
+
 
 /* ==========================================================
    CONTENEDORES BASE
@@ -26,6 +30,8 @@ main {
   box-shadow: 0 0 16px rgba(0,0,0,0.4);
 }
 
+
+
 /* ==========================================================
    NAVBAR
 ========================================================== */
@@ -36,24 +42,34 @@ main {
   box-shadow: 0 4px 14px rgba(0,0,0,0.8);
 }
 
+
+
 .navbar-brand {
   color: #ffd700 !important;
   font-weight: bold;
   font-size: 1.4rem;
 }
 
+
+
 .navbar-text {
   color: #ffd700 !important;
 }
+
+
 
 .nav-link {
   color: #fff !important;
   font-size: 1rem;
 }
 
+
+
 .nav-link:hover {
   color: #ffd700 !important;
 }
+
+
 
 .contador-carrito {
   background-color: #ffd700;
@@ -70,6 +86,8 @@ main {
   right: -10px;
 }
 
+
+
 /* Dropdown */
 .perfil-dropdown .dropdown-menu {
   background-color: #111;
@@ -77,14 +95,20 @@ main {
   border-radius: 10px;
 }
 
+
+
 .perfil-dropdown .dropdown-item {
   color: #fff !important;
 }
+
+
 
 .perfil-dropdown .dropdown-item:hover {
   background-color: #222;
   color: #ffd700 !important;
 }
+
+
 
 /* ==========================================================
    GRID DE PRODUCTOS — RESPONSIVE + PERFECTO
@@ -97,10 +121,14 @@ main {
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 }
 
+
+
 .grid-item {
   display: flex;
   justify-content: center;
 }
+
+
 
 /* ==========================================================
    CARD DE PRODUCTO — ESTILO ROCKSTORE + RESPONSIVO
@@ -118,10 +146,14 @@ main {
   position: relative;
 }
 
+
+
 .tarjeta-producto:hover {
   transform: translateY(-6px);
   box-shadow: 0 6px 20px rgba(255, 215, 0, 0.25);
 }
+
+
 
 /* Imagen uniforme y responsiva */
 .imagenes-card {
@@ -131,6 +163,8 @@ main {
   border-bottom: 2px solid #ffd700;
 }
 
+
+
 /* Interior */
 .tarjeta-producto .card-body {
   height: 210px;
@@ -139,15 +173,21 @@ main {
   justify-content: space-between;
 }
 
+
+
 .tarjeta-producto .card-title {
   color: #ffd700;
   font-weight: 600;
 }
 
+
+
 .tarjeta-producto .card-text {
   color: #fff;
   font-size: 0.9rem;
 }
+
+
 
 /* Botón detalle */
 .boton-primario {
@@ -160,9 +200,13 @@ main {
   border: none;
 }
 
+
+
 .boton-primario:hover {
   background-color: #ffe85b;
 }
+
+
 
 /* Botón favorito */
 .boton-favoritos {
@@ -178,10 +222,14 @@ main {
   font-size: 1.2rem;
 }
 
+
+
 .boton-favoritos:hover {
   background-color: #ffd700;
   color: #000;
 }
+
+
 
 /* ==========================================================
    MODAL FAVORITOS
@@ -195,6 +243,8 @@ main {
   align-items: center;
 }
 
+
+
 .modal-card {
   background-color: #111;
   border: 2px solid #ffd700;
@@ -204,6 +254,8 @@ main {
   text-align: center;
 }
 
+
+
 .boton-confirmar {
   background-color: #ffd700;
   color: #000;
@@ -212,6 +264,8 @@ main {
   border-radius: 20px;
   font-weight: bold;
 }
+
+
 
 /* ==========================================================
    LOGIN / REGISTRO
@@ -225,6 +279,8 @@ main {
   border: 1px solid #ffd700;
 }
 
+
+
 .login-button,
 .registro-button {
   width: 100%;
@@ -234,6 +290,8 @@ main {
   color: #000;
   font-weight: bold;
 }
+
+
 
 /* ==========================================================
    CARRITO
@@ -247,12 +305,16 @@ main {
   border: 1px solid #ffd700;
 }
 
+
+
 .producto-img {
   width: 120px;
   height: 120px;
   object-fit: cover;
   border-radius: 10px;
 }
+
+
 
 /* ==========================================================
    RESPONSIVE
@@ -261,6 +323,8 @@ main {
   .navbar-brand {
     display: none;
   }
+
+
 }
 
 /* Contenedor detalle */
@@ -273,6 +337,8 @@ main {
   box-shadow: 0 0 18px rgba(255, 215, 0, 0.25);
 }
 
+
+
 /* Imagen del producto */
 .detalle-imagen {
   width: 100%;
@@ -284,6 +350,8 @@ main {
   box-shadow: 0 0 12px rgba(255, 215, 0, 0.25);
 }
 
+
+
 /* Categoría */
 .detalle-categoria {
   color: #ffd700;
@@ -292,6 +360,8 @@ main {
   margin-bottom: 5px;
 }
 
+
+
 /* Nombre */
 .detalle-nombre {
   font-size: 2rem;
@@ -299,12 +369,16 @@ main {
   color: #ffd700;
 }
 
+
+
 /* Precio */
 .detalle-precio {
   color: #ffd700;
   font-weight: bold;
   margin-bottom: 20px;
 }
+
+
 
 /* Texto */
 .detalle-descripcion,
@@ -314,19 +388,27 @@ main {
   margin-bottom: 15px;
 }
 
+
+
 /* Responsive */
 @media (max-width: 768px) {
   .detalle-container {
     padding: 20px;
   }
 
+
+
   .detalle-nombre {
     font-size: 1.6rem;
   }
 
+
+
   .detalle-imagen {
     max-height: 320px;
   }
+
+
 }
 /* LOGIN */
 .login-page {
@@ -335,6 +417,8 @@ main {
   justify-content: center;
   align-items: center;
 }
+
+
 
 .login-container {
   width: 350px;
@@ -345,6 +429,8 @@ main {
   text-align: center;
 }
 
+
+
 .login-title {
   font-size: 28px;
   font-weight: bold;
@@ -352,16 +438,22 @@ main {
   margin-bottom: 20px;
 }
 
+
+
 .login-group {
   text-align: left;
   margin-bottom: 15px;
 }
+
+
 
 .login-label {
   color: white;
   margin-bottom: 6px;
   display: block;
 }
+
+
 
 .login-input {
   width: 100%;
@@ -372,11 +464,15 @@ main {
   margin-top: 5px;
 }
 
+
+
 .login-error {
   color: #ff5252;
   font-weight: bold;
   margin: 10px 0;
 }
+
+
 
 .login-button {
   width: 100%;
@@ -389,17 +485,23 @@ main {
   margin-top: 10px;
 }
 
+
+
 .login-register-text {
   color: white;
   margin-top: 15px;
   font-size: 0.9rem;
 }
 
+
+
 .login-link {
   color: #ffd700;
   font-weight: bold;
   cursor: pointer;
 }
+
+
 /* REGISTRO */
 .registro-page {
   min-height: 92vh;
@@ -407,6 +509,8 @@ main {
   justify-content: center;
   align-items: center;
 }
+
+
 
 .registro-card {
   width: 380px;
@@ -417,16 +521,22 @@ main {
   text-align: center;
 }
 
+
+
 .registro-title {
   font-size: 28px;
   font-weight: bold;
   color: #ffd700;
 }
 
+
+
 .registro-subtitle {
   color: #fff;
   margin-bottom: 15px;
 }
+
+
 
 .registro-error {
   color: #ff5252;
@@ -434,19 +544,27 @@ main {
   font-weight: bold;
 }
 
+
+
 .registro-form {
   text-align: left;
 }
 
+
+
 .registro-group {
   margin-bottom: 15px;
 }
+
+
 
 .registro-group label {
   color: #fff;
   margin-bottom: 5px;
   display: block;
 }
+
+
 
 .registro-input {
   width: 100%;
@@ -455,6 +573,8 @@ main {
   border-radius: 10px;
   border: 1px solid #777;
 }
+
+
 
 .registro-button {
   width: 100%;
@@ -467,14 +587,675 @@ main {
   margin-top: 15px;
 }
 
+
+
 .registro-login-text {
   color: white;
   margin-top: 15px;
   text-align: center;
 }
 
+
+
 .registro-link {
   color: #ffd700;
   font-weight: bold;
   cursor: pointer;
+}
+
+
+
+
+/* ================================
+   CARDS LARGAS TIPO DETALLE PRODUCTO
+================================ */
+
+.card-linea {
+  width: 90%;
+  max-width: 900px;
+  background: #fff;
+  margin: 15px auto;
+  padding: 15px;
+  border-radius: 14px;
+  display: flex;
+  gap: 20px;
+  box-shadow: 0px 6px 16px rgba(0,0,0,0.10);
+  transition: transform .2s ease;
+  position: relative;
+}
+
+
+
+/* Imagen del producto */
+.card-linea img {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+
+
+/* Contenido */
+.card-linea-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+
+
+/* Botones */
+.card-linea-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+
+
+/* Botón eliminar (X flotante) */
+.boton-x {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background-color: #e63946;
+  border: none;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background .2s ease, transform .2s ease;
+}
+
+
+
+/* Vacío */
+.mensaje-vacio {
+  text-align: center;
+  margin-top: 50px;
+  color: #555;
+}
+
+
+
+/* Responsive */
+@media (max-width: 700px) {
+  .card-linea {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+
+}
+ 
+.card-linea {
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.65); /* Fondo oscuro translúcido */
+  border: 2px solid rgba(255, 215, 0, 0.6);
+  border-radius: 20px;
+  padding: 20px;
+  margin: 20px auto;
+  backdrop-filter: blur(6px);
+  color: #fff; /* TODO el texto claro */
+  transition: 0.3s ease-in-out;
+}
+
+
+
+.card-linea:hover {
+  transform: scale(1.02);
+  border-color: rgba(255, 230, 0, 0.9);
+}
+
+
+
+.card-linea img {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+  border-radius: 12px;
+  background: white;
+  padding: 10px;
+  margin-right: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+
+
+.card-linea-content {
+  flex: 1;
+}
+
+
+
+.card-linea-content h3 {
+  font-size: 26px;
+  font-weight: 800;
+  color: #ffe600; /* Amarillo brillante como en DetalleProducto */
+  margin-bottom: 5px;
+}
+
+
+
+.card-linea-content p {
+  margin: 3px 0;
+  font-size: 17px;
+  color: #f1f1f1;
+}
+
+
+
+.card-linea-content strong {
+  font-size: 20px;
+  color: #fff;
+}
+
+
+
+.card-linea-buttons {
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+}
+
+
+
+.btn-card {
+  background: rgba(255, 215, 0, 0.2);
+  border: 2px solid #ffd700;
+  padding: 6px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: white;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+
+
+.btn-card:hover {
+  background: #ffd700;
+  color: black;
+}
+
+
+
+.btn-delete {
+  background: rgba(255, 80, 80, 0.2);
+  border: 2px solid #ff5050;
+}
+
+
+
+.btn-delete:hover {
+  background: #ff5050;
+  color: white;
+}
+
+
+
+.boton-x {
+  background: none;
+  border: none;
+  color: #ff7070;
+  font-size: 24px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+
+
+.boton-x:hover {
+  color: red;
+  transform: scale(1.2);
+}
+
+
+
+/******************************
+ *   ESTILO GENERAL CARRITO
+ ******************************/
+.carrito-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 10px;
+  color: #fff;
+}
+
+
+
+/******************************
+ *        TÍTULO
+ ******************************/
+.carrito-titulo {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 25px;
+  font-weight: bold;
+  color: white;
+}
+
+
+
+/******************************
+ *        LISTA
+ ******************************/
+.carrito-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+
+
+/******************************
+ *     CARD DE CADA ITEM
+ ******************************/
+.carrito-item {
+  display: flex;
+  gap: 15px;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 15px;
+  border-radius: 12px;
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+
+
+/******************************
+ *    IMAGEN PRODUCTO
+ ******************************/
+.carrito-item-img {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+
+
+/******************************
+ *    CONTENIDO DEL ITEM
+ ******************************/
+.carrito-item-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+
+
+/* Nombre */
+.carrito-item-nombre {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: white;
+  margin: 0;
+}
+
+
+
+/* Precio */
+.carrito-item-precio {
+  font-size: 1.1rem;
+  color: #ffd369;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+
+
+/* Cantidad */
+.carrito-item-cantidad {
+  font-size: 1rem;
+  color: #eee;
+  margin: 5px 0 10px 0;
+}
+
+
+
+/******************************
+ *   BOTONES ( + - eliminar )
+ ******************************/
+.carrito-item-botones {
+  display: flex;
+  gap: 10px;
+}
+
+
+
+.carrito-item-botones button {
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+
+
+/* Botón aumentar */
+.carrito-item-botones button:nth-child(1) {
+  background: #4caf50;
+  color: white;
+}
+
+
+
+.carrito-item-botones button:nth-child(1):hover {
+  background: #43a047;
+}
+
+
+
+/* Botón disminuir */
+.carrito-item-botones button:nth-child(2) {
+  background: #f0ad4e;
+  color: black;
+}
+
+
+
+.carrito-item-botones button:nth-child(2):hover {
+  background: #ec9a2e;
+}
+
+
+
+/* Botón eliminar */
+.carrito-item-botones button:nth-child(3) {
+  background: #e74c3c;
+  color: white;
+}
+
+
+
+.carrito-item-botones button:nth-child(3):hover {
+  background: #d43728;
+}
+
+
+
+/******************************
+ *         TOTAL
+ ******************************/
+.carrito-total {
+  margin-top: 25px;
+  padding: 15px;
+  text-align: right;
+  font-size: 1.6rem;
+  font-weight: bold;
+  background: rgba(255, 255, 255, 0.10);
+  border-radius: 12px;
+  color: #ffd369;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+
+
+/******************************
+ * CARD DEL CARRITO (oscura)
+ ******************************/
+.carrito-item {
+  display: flex;
+  gap: 15px;
+  background: rgba(20, 20, 20, 0.85); /* MÁS OSCURA */
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06); /* Muy sutil */
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+
+
+.carrito-item:hover {
+  transform: translateY(-3px);
+  background: rgba(35, 35, 35, 0.9); /* Hover más claro */
+}
+
+
+
+/******************************
+ * TEXTOS
+ ******************************/
+.carrito-item-nombre {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #ffffff; /* Blanco */
+  margin: 0;
+}
+
+
+
+.carrito-item-precio {
+  font-size: 1.1rem;
+  color: #ffcc66; /* Dorado más suave */
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+
+
+.carrito-item-cantidad {
+  font-size: 1rem;
+  color: #cccccc; /* Gris claro */
+  margin: 5px 0 10px 0;
+}
+
+
+
+/******************************
+ * IMAGEN
+ ******************************/
+.carrito-item-img {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.12); /* pequeño borde */
+}
+
+
+
+/******************************
+ * TOTAL FINAL
+ ******************************/
+.carrito-total {
+  margin-top: 25px;
+  padding: 15px;
+  text-align: right;
+  font-size: 1.6rem;
+  font-weight: bold;
+  background: rgba(15, 15, 15, 0.85); /* MÁS OSCURO */
+  border-radius: 12px;
+  color: #ffcc66;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+
+
+/******************************
+ * TÍTULOS DE PÁGINA
+ ******************************/
+.titulo-pagina {
+  font-size: 2.4rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 30px;
+  margin-top: 10px;
+
+  /* Estilo profesional */
+  color: #ffffff;
+  letter-spacing: 1px;
+  
+  /* Línea debajo (elegante) */
+  padding-bottom: 10px;
+  border-bottom: 2px solid rgba(255, 204, 102, 0.7);
+
+  /* Suavizar con sombra */
+  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+
+  /* Animación suave */
+  animation: fadeInDown 0.4s ease;
+}
+
+
+
+/* Animación de entrada */
+@keyframes fadeInDown {
+  from { 
+    opacity: 0; 
+    transform: translateY(-12px);
+  }
+
+
+}
+
+/******************************
+ * TÍTULO DE PÁGINA FULL WIDTH
+ ******************************/
+.titulo-pagina {
+  width: 100%;
+  padding: 18px 0;
+
+  background: rgba(25, 25, 25, 0.9);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #f9f9f9;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+
+  margin-bottom: 35px; /* separación con contenido */
+
+  /* Sombra elegante */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+
+  /* Animación suave */
+  animation: fadeDown 0.35s ease-out;
+}
+
+
+
+/* Animación */
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+
+}
+
+/* CENTRAR TODO */
+.favoritos-vacio {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 80px;
+}
+
+
+
+/* CARD OSCURA ESTILO MELODY STORE */
+.favoritos-vacio-card {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 40px;
+  border-radius: 16px;
+  border: 2px solid #fbc02d;
+  text-align: center;
+  width: 80%;
+  max-width: 600px;
+  color: #fff;
+  box-shadow: 0 0 25px rgba(255, 204, 0, 0.4);
+  backdrop-filter: blur(6px);
+}
+
+
+
+/* EMOJI grande y con presencia */
+.favoritos-vacio-card .emoji {
+  font-size: 60px;
+  display: block;
+  margin-bottom: 15px;
+}
+
+
+
+/* TÍTULO estilo profesional */
+.favoritos-vacio-card h2 {
+  font-size: 32px;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+
+
+/* TEXTO suave */
+.favoritos-vacio-card p {
+  font-size: 18px;
+  opacity: 0.9;
+}
+
+/* ============================================
+   OFFCANVAS — Estilo negro translúcido elegante
+============================================ */
+
+.offcanvas {
+  background: rgba(0, 0, 0, 0.88) !important; /* negro semi-transparente */
+  color: #fff !important;
+  border-left: 2px solid rgba(255, 215, 0, 0.5); /* borde dorado suave */
+  backdrop-filter: blur(6px); /* efecto vidrio */
+}
+
+.offcanvas-header {
+  border-bottom: 1px solid rgba(255, 215, 0, 0.35);
+}
+
+.offcanvas-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #ffd700; /* dorado */
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.offcanvas-body {
+  color: #fff !important;
+}
+
+.offcanvas-body a {
+  color: #ffd700 !important;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.offcanvas-body a:hover {
+  color: #fff !important;
+  padding-left: 6px;
+  transition: 0.2s ease;
+}
+
+.offcanvas .btn-close {
+  filter: brightness(0) invert(1); /* botón X blanco */
 }

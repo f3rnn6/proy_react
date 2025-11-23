@@ -178,11 +178,7 @@ export default function AppNavBar({ nombre }) {
             </Nav.Link>
           </Nav>
 
-          <div className="mt-auto pb-3">
-            <Nav.Link as={Link} to="/ajustes" onClick={handleClose}>
-              Contáctanos
-            </Nav.Link>
-          </div>
+          
         </Offcanvas.Body>
       </Offcanvas>
     </>
