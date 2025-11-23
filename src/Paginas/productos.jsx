@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import Card from "../componentes/Card";
+import AppCard from "../componentes/Card";
 import SearchBar from "../componentes/SearchBar";
 import "../App.css";
-import { getProductos } from "../api/api"; // ⬅️ Backend real
+import { getProductos } from "../api/api";
 
 function Productos() {
   const [productos, setProductos] = useState([]);
@@ -11,7 +11,6 @@ function Productos() {
   const [cargando, setCargando] = useState(false);
   const [error, setError] = useState("");
 
-  // 🔥 Cargar productos reales desde el backend
   useEffect(() => {
     const cargar = async () => {
       setCargando(true);
@@ -24,11 +23,9 @@ function Productos() {
         setCargando(false);
       }
     };
-
     cargar();
   }, []);
 
-  // 🔍 Filtro de búsqueda
   const productosFiltrados = productos.filter((producto) =>
     producto.nombre.toLowerCase().includes(busqueda.toLowerCase())
   );
@@ -46,7 +43,7 @@ function Productos() {
         {productosFiltrados.length > 0 ? (
           productosFiltrados.map((producto) => (
             <Col xs={12} md={4} lg={3} key={producto.id} className="mb-4">
-              <Card {...producto} />
+              <AppCard producto={producto} />
             </Col>
           ))
         ) : (
