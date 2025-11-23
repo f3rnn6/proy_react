@@ -1,11 +1,8 @@
 /* ==========================================================
-   TIPOGRAFÍA GLOBAL – ROBOTO (MODO B)
+   TIPOGRAFÍA — ROBOTO
 ========================================================== */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
-/* ==========================================================
-   ESTILO GLOBAL
-========================================================== */
 body {
   margin: 0;
   padding: 0;
@@ -15,92 +12,65 @@ body {
 }
 
 main {
-  padding-top: 90px; /* navbar grueso */
+  padding-top: 90px;
 }
 
-/* Contenedores base */
+/* ==========================================================
+   CONTENEDORES BASE
+========================================================== */
 .section-container {
   background: rgba(0,0,0,0.75);
   padding: 25px;
   border-radius: 15px;
-  color: #fff;
   margin-top: 20px;
   box-shadow: 0 0 16px rgba(0,0,0,0.4);
 }
 
 /* ==========================================================
-   NAVBAR MODERNO — ESTILO GRUESO ROCKSTORE
+   NAVBAR
 ========================================================== */
 .barra-navegacion {
-  background-color: #000 !important;
-  padding: 20px 0;
-  border-bottom: 3px solid #ffd700;
+  background: #000 !important;
+  border-bottom: 2px solid #ffd700;
+  padding: 10px 20px;
   box-shadow: 0 4px 14px rgba(0,0,0,0.8);
 }
 
-.barra-navegacion .navbar-brand {
+.navbar-brand {
   color: #ffd700 !important;
-  font-size: 1.8rem;
-  font-weight: 700;
-  letter-spacing: 1px;
+  font-weight: bold;
+  font-size: 1.4rem;
 }
 
-.barra-navegacion .navbar-brand:hover {
+.navbar-text {
+  color: #ffd700 !important;
+}
+
+.nav-link {
   color: #fff !important;
+  font-size: 1rem;
 }
 
-.barra-navegacion .navbar-text {
-  color: #ffd700 !important;
-  font-size: 0.95rem;
-  margin-right: 20px;
-}
-
-.navbar-nav .nav-link {
-  color: #fff !important;
-  font-size: 1.1rem;
-  margin-right: 20px;
-  font-weight: 400;
-}
-
-.navbar-nav .nav-link:hover {
+.nav-link:hover {
   color: #ffd700 !important;
 }
 
-.barra-navegacion .btn {
-  border: 1px solid #ffd700;
-  border-radius: 30px;
-  padding: 6px 18px;
-  color: #ffd700;
-  font-weight: 500;
-}
-
-.barra-navegacion .btn:hover {
-  background-color: #ffd700;
-  color: #000 !important;
-}
-
-/* Contador carrito */
 .contador-carrito {
   background-color: #ffd700;
   color: #000;
-  font-size: 0.75rem;
+  font-size: 12px;
   border-radius: 50%;
-  font-weight: bold;
   width: 20px;
   height: 20px;
-  position: absolute;
-  top: -5px;
-  right: -10px;
-  display: flex;
-  justify-content: center;
+  display: inline-flex;
   align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -6px;
+  right: -10px;
 }
 
-/* Dropdown perfil */
-.perfil-dropdown .dropdown-toggle {
-  color: #ffd700 !important;
-}
-
+/* Dropdown */
 .perfil-dropdown .dropdown-menu {
   background-color: #111;
   border: 1px solid #ffd700;
@@ -112,50 +82,40 @@ main {
 }
 
 .perfil-dropdown .dropdown-item:hover {
-  background-color: #222 !important;
-  color: #ffd700 !important;
-}
-
-/* OFFCANVAS */
-.offcanvas-custom .offcanvas-header {
-  background-color: #000;
-  border-bottom: 1px solid #ffd700;
-}
-
-.offcanvas-custom .offcanvas-title {
-  color: #ffd700;
-  font-weight: 600;
-}
-
-.offcanvas-custom .offcanvas-body {
-  background-color: #111;
-}
-
-.offcanvas-custom .nav-link {
-  color: #fff !important;
-  padding: 12px 0;
-  border-bottom: 1px solid #222;
-}
-
-.offcanvas-custom .nav-link:hover {
+  background-color: #222;
   color: #ffd700 !important;
 }
 
 /* ==========================================================
-   CARDS DE PRODUCTOS (MODERNAS)
+   GRID DE PRODUCTOS — RESPONSIVE + PERFECTO
 ========================================================== */
-.card-wrapper {
+.grid-productos {
+  display: grid;
+  gap: 25px;
+  padding: 10px 0 40px 0;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+
+.grid-item {
   display: flex;
   justify-content: center;
 }
 
+/* ==========================================================
+   CARD DE PRODUCTO — ESTILO ROCKSTORE + RESPONSIVO
+========================================================== */
 .tarjeta-producto {
   background: #111;
   border: 2px solid #ffd700;
-  border-radius: 15px;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 260px;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
-  transition: all 0.25s ease;
-  padding-bottom: 16px;
+  transition: 0.25s ease;
+  position: relative;
 }
 
 .tarjeta-producto:hover {
@@ -163,33 +123,48 @@ main {
   box-shadow: 0 6px 20px rgba(255, 215, 0, 0.25);
 }
 
+/* Imagen uniforme y responsiva */
 .imagenes-card {
   width: 100%;
-  height: 220px;
+  aspect-ratio: 1 / 1.15;
   object-fit: cover;
+  border-bottom: 2px solid #ffd700;
+}
+
+/* Interior */
+.tarjeta-producto .card-body {
+  height: 210px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .tarjeta-producto .card-title {
   color: #ffd700;
-  font-weight: 500;
+  font-weight: 600;
 }
 
+.tarjeta-producto .card-text {
+  color: #fff;
+  font-size: 0.9rem;
+}
+
+/* Botón detalle */
 .boton-primario {
   width: 100%;
   padding: 10px;
   background-color: #ffd700;
-  border: none;
   border-radius: 25px;
   font-weight: bold;
-  margin-top: 8px;
   color: #000;
+  border: none;
 }
 
 .boton-primario:hover {
   background-color: #ffe85b;
 }
 
-/* Botón estrella */
+/* Botón favorito */
 .boton-favoritos {
   position: absolute;
   top: 12px;
@@ -209,7 +184,7 @@ main {
 }
 
 /* ==========================================================
-   MODAL "AGREGADO A FAVORITOS"
+   MODAL FAVORITOS
 ========================================================== */
 .modal-confirmacion {
   position: fixed;
@@ -239,66 +214,15 @@ main {
 }
 
 /* ==========================================================
-   FAVORITOS
+   LOGIN / REGISTRO
 ========================================================== */
-.favoritos-container {
-  padding: 20px;
-  background: rgba(0,0,0,0.75);
-  border-radius: 15px;
-}
-
-.boton-x {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  background-color: #d32f2f;
-  border: none;
-  color: #fff;
-  border-radius: 50%;
-  padding: 5px 10px;
-}
-
-.boton-x:hover {
-  background-color: #ff5252;
-}
-
-/* ==========================================================
-   LOGIN & REGISTRO (MODERNOS)
-========================================================== */
-.login-page,
-.registro-page {
-  min-height: 92vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.login-card,
-.registro-card {
-  background: rgba(0,0,0,0.85);
-  padding: 35px;
-  width: 380px;
-  border-radius: 18px;
-  border: 2px solid #ffd700;
-  text-align: center;
-  box-shadow: 0 0 18px rgba(255,215,0,0.25);
-}
-
-.login-title,
-.registro-title {
-  font-size: 28px;
-  font-weight: bold;
-  color: #ffd700;
-}
-
-.registro-input,
-.login-input {
-  width: 100%;
-  padding: 11px;
-  background: #fff;
-  border-radius: 10px;
-  border: 1px solid #777;
-  margin-bottom: 15px;
+.login-container,
+.registro-container {
+  width: 350px;
+  background: rgba(0, 0, 0, 0.85);
+  padding: 30px;
+  border-radius: 12px;
+  border: 1px solid #ffd700;
 }
 
 .login-button,
@@ -307,26 +231,10 @@ main {
   padding: 11px;
   background-color: #ffd700;
   border-radius: 10px;
-  font-weight: bold;
   color: #000;
-}
-
-.registro-link,
-.login-link {
-  color: #ffd700;
   font-weight: bold;
-  cursor: pointer;
 }
 
-.login-container,
-.registro-container
- {
-  width: 350px;
-  background: rgba(0, 0, 0, 0.85);
-  padding: 30px;
-  border-radius: 12px;
-  border: 1px solid #ffd700;
-}
 /* ==========================================================
    CARRITO
 ========================================================== */
@@ -347,204 +255,10 @@ main {
 }
 
 /* ==========================================================
-   ADMIN
-========================================================== */
-.admin-card {
-  background-color: #111;
-  border: 2px solid #ffd700;
-  border-radius: 15px;
-}
-
-.admin-card img {
-  height: 200px;
-  object-fit: cover;
-  border-radius: 10px;
-}
-
-/* ==========================================================
-   DETALLE PRODUCTO
-========================================================== */
-.img-fluid {
-  border-radius: 10px;
-  border: 2px solid #ffd700;
-}
-
-/* ==========================================================
    RESPONSIVE
 ========================================================== */
-@media (max-width: 768px) {
-  .barra-navegacion {
-    padding: 15px 0;
-  }
-}
-
-/* ==========================================================
-   MENSAJE — NO HAY FAVORITOS (MODERNO)
-========================================================== */
-
-.mensaje-vacio-card {
-  background: rgba(0, 0, 0, 0.7);
-  border: 2px solid #ffd700;
-  border-radius: 16px;
-  padding: 35px;
-  text-align: center;
-  margin: 40px auto;
-  max-width: 480px;
-  box-shadow: 0 0 18px rgba(255,215,0,0.25);
-  animation: fadeIn 0.3s ease-out;
-}
-
-.mensaje-vacio-card h2 {
-  color: #ffd700;
-  font-size: 1.7rem;
-  margin-bottom: 10px;
-  font-weight: 700;
-}
-
-.mensaje-vacio-card p {
-  color: #ffffff;
-  font-size: 1rem;
-  opacity: 0.9;
-  margin-top: 0;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.92);
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-/* ==========================================================
-   FAVORITOS - CENTRAR CARD VACÍA
-========================================================== */
-
-.favoritos-lista {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 70vh;
-}
-
-/* ===========================================
-   NAVBAR BASE (DESKTOP)
-=========================================== */
-
-.barra-navegacion {
-  background: #000 !important;
-  border-bottom: 2px solid #ffd700;
-  padding: 10px 20px;
-}
-
-.navbar-brand {
-  color: #ffd700 !important;
-  font-weight: bold;
-  font-size: 1.4rem;
-}
-
-.navbar-text {
-  color: #ffd700 !important;
-  margin-bottom: 0;
-}
-
-.nav-link {
-  color: #fff !important;
-  font-size: 1rem;
-}
-
-.nav-link:hover {
-  color: #ffd700 !important;
-}
-
-.contador-carrito {
-  background-color: #ffd700;
-  color: #000;
-  font-size: 12px;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: -6px;
-  right: -10px;
-}
-
-/* Dropdown estilo dorado */
-.perfil-dropdown .dropdown-menu {
-  background-color: #111 !important;
-  border: 1px solid #ffd700 !important;
-  border-radius: 10px;
-  padding: 0;
-}
-
-.perfil-dropdown .dropdown-item {
-  text-align: center;
-  color: white !important;
-  padding: 10px;
-}
-
-.perfil-dropdown .dropdown-item:hover {
-  background-color: #222;
-  color: #ffd700 !important;
-}
-
-.perfil-dropdown .dropdown-divider {
-  border-top: 1px solid #ffd700 !important;
-  width: 60%;
-  margin: 5px auto;
-}
-
-/* ===========================================
-   MÓVIL – MENÚ COMPLETAMENTE CENTRADO
-=========================================== */
-
 @media (max-width: 992px) {
-
-  /* Menú interno en columna centrada */
-  .navbar-menu {
-    width: 100%;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    text-align: center;
-    gap: 15px;
-    padding: 15px 0;
-  }
-
-  /* BRAND CENTRADO SOLO EN MÓVIL DENTRO DEL COLLAPSE */
-  .brand-mobile {
-    display: block !important;
-    width: 100%;
-    text-align: center;
-    font-size: 1.6rem;
-    color: #ffd700 !important;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-
-  /* Ocultar brand de desktop en móvil */
-  .barra-navegacion .navbar-brand {
+  .navbar-brand {
     display: none;
   }
-
-  /* Dropdown centrado dentro del menú */
-  .perfil-dropdown .dropdown-menu {
-    position: static !important;
-    margin: 0 auto !important;
-    width: 230px !important;
-    text-align: center;
-  }
-
-  /* Botón Catálogo centrado */
-  .barra-navegacion .btn {
-    margin: 0 auto;
-    padding: 8px 20px;
-    display: block;
-  }
 }
-

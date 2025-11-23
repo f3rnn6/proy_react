@@ -39,17 +39,14 @@ function Productos() {
 
       <SearchBar busqueda={busqueda} setBusqueda={setBusqueda} />
 
-      <Row className="mt-4">
-        {productosFiltrados.length > 0 ? (
-          productosFiltrados.map((producto) => (
-            <Col xs={12} md={4} lg={3} key={producto.id} className="mb-4">
-              <AppCard producto={producto} />
-            </Col>
-          ))
-        ) : (
-          <p className="text-center">No hay productos disponibles</p>
-        )}
-      </Row>
+      <div className="grid-productos">
+        {productosFiltrados.map((producto) => (
+          <div key={producto.id} className="grid-item">
+            <AppCard producto={producto} />
+          </div>
+        ))}
+      </div>
+
     </Container>
   );
 }
