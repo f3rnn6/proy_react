@@ -45,7 +45,8 @@ function App() {
         {/* Rutas públicas */}
         <Route path="/" element={<Productos />} />
         <Route path="/productos" element={<Productos />} />
-        <Route path="/producto/:id" element={<DetalleProductos />} />
+        <Route path="/detalleproductos/:id" element={<DetalleProductos />} />
+
         <Route path="/favoritos" element={<Favoritos />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/registro" element={<RegisterPage />} />

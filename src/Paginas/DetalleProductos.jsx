@@ -30,25 +30,26 @@ function DetalleProductos() {
   if (!producto) return <p className="text-center mt-5">Producto no encontrado.</p>;
 
   return (
-    <Container className="mt-5">
-      <Row>
-        <Col md={6}>
+    <Container className="detalle-container mt-5">
+      <Row className="align-items-center">
+        
+        {/* 🔥 MISMA FORMA QUE EN AppCard */}
+        <Col md={6} className="mb-4 text-center">
           <img
-            src={producto.imagen}
+            src={producto.imagen.startsWith("/") ? producto.imagen : "/" + producto.imagen}
             alt={producto.nombre}
-            className="img-fluid rounded"
+            className="detalle-imagen"
           />
         </Col>
 
         <Col md={6}>
-          <h2>{producto.nombre}</h2>
-          <p className="text-muted">{producto.categoria}</p>
-          <h4 className="text-primary">${producto.precio}</h4>
-          <p>{producto.descripcion}</p>
-          <p>{producto.detalle}</p>
+          <h4 className="detalle-categoria">{producto.categoria}</h4>
+          <h2 className="detalle-nombre">{producto.nombre}</h2>
+          <h3 className="detalle-precio">${producto.precio}</h3>
+          <p className="detalle-descripcion">{producto.descripcion}</p>
+          <p className="detalle-detalle">{producto.detalle}</p>
 
-          {/* Próximo paso: conectar botón al carrito */}
-          <Button variant="primary">Agregar al carrito</Button>
+          <Button className="boton-primario mt-3">Agregar al carrito</Button>
         </Col>
       </Row>
     </Container>

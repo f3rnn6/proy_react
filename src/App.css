@@ -262,3 +262,69 @@ main {
     display: none;
   }
 }
+
+/* Contenedor detalle */
+.detalle-container {
+  background: rgba(0, 0, 0, 0.75);
+  padding: 35px;
+  border-radius: 15px;
+  border: 2px solid #ffd700;
+  color: #fff;
+  box-shadow: 0 0 18px rgba(255, 215, 0, 0.25);
+}
+
+/* Imagen del producto */
+.detalle-imagen {
+  width: 100%;
+  height: auto;
+  max-height: 420px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 2px solid #ffd700;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.25);
+}
+
+/* Categoría */
+.detalle-categoria {
+  color: #ffd700;
+  font-size: 1rem;
+  opacity: 0.8;
+  margin-bottom: 5px;
+}
+
+/* Nombre */
+.detalle-nombre {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ffd700;
+}
+
+/* Precio */
+.detalle-precio {
+  color: #ffd700;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Texto */
+.detalle-descripcion,
+.detalle-detalle {
+  font-size: 1.1rem;
+  line-height: 1.5rem;
+  margin-bottom: 15px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .detalle-container {
+    padding: 20px;
+  }
+
+  .detalle-nombre {
+    font-size: 1.6rem;
+  }
+
+  .detalle-imagen {
+    max-height: 320px;
+  }
+}
