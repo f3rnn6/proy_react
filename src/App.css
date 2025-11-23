@@ -328,3 +328,153 @@ main {
     max-height: 320px;
   }
 }
+/* LOGIN */
+.login-page {
+  min-height: 92vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-container {
+  width: 350px;
+  background: rgba(0, 0, 0, 0.85);
+  padding: 30px;
+  border-radius: 12px;
+  border: 1px solid #ffd700;
+  text-align: center;
+}
+
+.login-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #ffd700;
+  margin-bottom: 20px;
+}
+
+.login-group {
+  text-align: left;
+  margin-bottom: 15px;
+}
+
+.login-label {
+  color: white;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.login-input {
+  width: 100%;
+  padding: 11px;
+  background: white;
+  border-radius: 10px;
+  border: 1px solid #777;
+  margin-top: 5px;
+}
+
+.login-error {
+  color: #ff5252;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.login-button {
+  width: 100%;
+  padding: 11px;
+  background-color: #ffd700;
+  border-radius: 10px;
+  border: none;
+  font-weight: bold;
+  color: #000;
+  margin-top: 10px;
+}
+
+.login-register-text {
+  color: white;
+  margin-top: 15px;
+  font-size: 0.9rem;
+}
+
+.login-link {
+  color: #ffd700;
+  font-weight: bold;
+  cursor: pointer;
+}
+/* REGISTRO */
+.registro-page {
+  min-height: 92vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.registro-card {
+  width: 380px;
+  background: rgba(0, 0, 0, 0.85);
+  padding: 35px;
+  border-radius: 18px;
+  border: 2px solid #ffd700;
+  text-align: center;
+}
+
+.registro-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #ffd700;
+}
+
+.registro-subtitle {
+  color: #fff;
+  margin-bottom: 15px;
+}
+
+.registro-error {
+  color: #ff5252;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.registro-form {
+  text-align: left;
+}
+
+.registro-group {
+  margin-bottom: 15px;
+}
+
+.registro-group label {
+  color: #fff;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.registro-input {
+  width: 100%;
+  padding: 11px;
+  background: white;
+  border-radius: 10px;
+  border: 1px solid #777;
+}
+
+.registro-button {
+  width: 100%;
+  padding: 11px;
+  background-color: #ffd700;
+  border-radius: 10px;
+  border: none;
+  font-weight: bold;
+  color: #000;
+  margin-top: 15px;
+}
+
+.registro-login-text {
+  color: white;
+  margin-top: 15px;
+  text-align: center;
+}
+
+.registro-link {
+  color: #ffd700;
+  font-weight: bold;
+  cursor: pointer;
+}
