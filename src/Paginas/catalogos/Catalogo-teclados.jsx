@@ -7,7 +7,7 @@ function CatalogoTeclados() {
 
   useEffect(() => {
     async function cargar() {
-      const data = await getProductosPorCategoria("teclado");
+      const data = await getProductosPorCategoria("teclados");
       setProductos(data);
     }
     cargar();

@@ -7,7 +7,7 @@ function CatalogoGuitarras() {
 
   useEffect(() => {
     async function cargar() {
-      const data = await getProductosPorCategoria("guitarra");
+      const data = await getProductosPorCategoria("guitarras y bajos");
       setProductos(data);
     }
     cargar();

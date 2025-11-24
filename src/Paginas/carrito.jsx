@@ -42,7 +42,13 @@ function Carrito() {
       <h1 className="titulo-pagina">Carrito</h1>
 
       {carrito.length === 0 ? (
-        <h3 className="titulo-pagina">Carrito vacío</h3>
+       <div className="favoritos-vacio">
+          <div className="favoritos-vacio-card">
+            <span className="emoji">💔</span>
+            <h2>No tienes productos agregados al carrito</h2>
+            <p>Aexplora nuestra pagina y compra tus productos preferidos para verlos aquí ✨</p>
+          </div>
+        </div>
       ) : (
         <>
           <div className="carrito-lista">

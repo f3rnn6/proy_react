@@ -2,11 +2,21 @@ import { useState } from "react";
 import { Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
+// 🔥 Normalización 100% segura
+const normalizarImagen = (rutaCruda) => {
+  if (!rutaCruda) return "";
+
+  const nombreArchivo = rutaCruda.split("/").pop().split("\\").pop();
+
+  return `https://proyreact.s3.sa-east-1.amazonaws.com/Imagenes/${nombreArchivo}`;
+};
+
 function AppCard({ producto }) {
   const [modalAgregado, setModalAgregado] = useState(false);
 
   const handleAgregarFavorito = () => {
-    const favoritosGuardados = JSON.parse(localStorage.getItem("favoritos")) || [];
+    const favoritosGuardados =
+      JSON.parse(localStorage.getItem("favoritos")) || [];
     const yaExiste = favoritosGuardados.some((item) => item.id === producto.id);
 
     if (!yaExiste) {
@@ -18,20 +28,24 @@ function AppCard({ producto }) {
     }
   };
 
-  
   return (
     <>
       <Card className="tarjeta-producto text-center" style={{ width: "18rem" }}>
-        <Card.Img className="imagenes-card" variant="top" src={producto.imagen} />
+        <Card.Img
+          className="imagenes-card"
+          variant="top"
+          src={normalizarImagen(producto.imagen)}
+        />
+
         <Card.Body>
           <Card.Title style={{ color: "#ffffff" }}>{producto.nombre}</Card.Title>
-          <Card.Text style={{ color: "#ffffff" }}>{producto.descripcion}</Card.Text>
+          <Card.Text style={{ color: "#ffffff" }}>
+            {producto.descripcion}
+          </Card.Text>
           <Card.Text style={{ color: "#ffffff" }}>{producto.precio}</Card.Text>
 
           <Link to={`/detalleproductos/${producto.id}`}>
-            <Button className="boton-primario">
-              Ver Detalle
-            </Button>
+            <Button className="boton-primario">Ver Detalle</Button>
           </Link>
 
           <Button className="boton-favoritos" onClick={handleAgregarFavorito}>
