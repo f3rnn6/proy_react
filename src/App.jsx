@@ -8,6 +8,10 @@ import Carrito from "./Paginas/carrito";
 import Administrador from "./Paginas/Administrador";
 import LoginPage from "./Paginas/LoginPage";
 import RegisterPage from "./Paginas/registro";
+import CatalogoAccesorios from "./Paginas/catalogos/Catalogo-accesorios";
+import CatalogoBaterias from "./Paginas/catalogos/Catalogo-baterias";
+import CatalogoGuitarras from "./Paginas/catalogos/Catalogo-guitarra";
+import CatalogoTeclados from "./Paginas/catalogos/Catalogo-teclados";
 
 // 🔥 Navbar global
 import AppNavBar from "./componentes/navbar";
@@ -46,6 +50,10 @@ function App() {
         <Route path="/" element={<Productos />} />
         <Route path="/productos" element={<Productos />} />
         <Route path="/detalleproductos/:id" element={<DetalleProductos />} />
+        <Route path="/catalogo/guitarras" element={<CatalogoGuitarras />} />
+        <Route path="/catalogo/baterias" element={<CatalogoBaterias />} />
+        <Route path="/catalogo/teclados" element={<CatalogoTeclados />} />
+        <Route path="/catalogo/accesorios" element={<CatalogoAccesorios />} />
 
         <Route path="/favoritos" element={<Favoritos />} />
         <Route path="/login" element={<LoginPage />} />

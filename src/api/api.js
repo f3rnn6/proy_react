@@ -107,5 +107,10 @@ export const vaciarCarrito = async () => {
   await api.delete("/cliente/carrito/vaciar");
 };
 
+export const getProductosPorCategoria = async (categoria) => {
+  const res = await api.get(`/productos/categoria/${categoria}`);
+  return res.data;
+};
+
 
 export default api;
